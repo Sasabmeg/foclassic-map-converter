@@ -2,6 +2,8 @@ package net.fodev.controller;
 
 
 import net.fodev.model.Proto;
+import net.fodev.model.ProtoMapping;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,6 +15,11 @@ import java.util.Map;
 
 public class TestParser {
     Parser parser = new Parser();
+
+    @BeforeEach
+    public void Init() {
+        parser.setLogLevel("warning");
+    }
 
     @Test
     public void parseFromFile_Test_Valid() throws IOException {
@@ -57,7 +64,7 @@ public class TestParser {
     @Test
     public void parseFromMultipleFiles_Test_Valid() throws IOException {
         Files.deleteIfExists(Paths.get("out/lastParse.log"));
-        Files.deleteIfExists(Paths.get("out/all_in_one.mapping"));
+        Files.deleteIfExists(Paths.get("out/all_in_one_verbose.mapping"));
         List<String> sources = new ArrayList<>();
         sources.add("resources/tlamk2/ammo.fopro");
         sources.add("resources/tlamk2/animals.fopro");
@@ -99,8 +106,8 @@ public class TestParser {
         targets.add("resources/foclassic/weapon.fopro");
         List<Proto> target_all_in_one = parser.parseFromMultipleFiles(targets, "out/lastParse.log");
 
-        Map<Integer, Integer> mapping = parser.compareProtos(source_all_in_one, target_all_in_one, "out/lastParse.log");
-        parser.generateMapping(mapping, "out/all_in_one.mapping", "out/lastParse.log");
+        List<ProtoMapping> mapping = parser.compareProtosVerbose(source_all_in_one, target_all_in_one, "out/lastParse.log");
+        parser.generateMappingVerbose(mapping, "out/all_in_one_verbose.mapping", "out/lastParse.log");
     }
 
 

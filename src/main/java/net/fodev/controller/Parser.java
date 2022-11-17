@@ -1,6 +1,7 @@
 package net.fodev.controller;
 
 import net.fodev.model.Proto;
+import net.fodev.model.ProtoMapping;
 
 import java.io.*;
 import java.util.*;
@@ -441,6 +442,61 @@ public class Parser {
         return protos;
     }
 
+    public List<ProtoMapping> compareProtosVerbose(List<Proto> source, List<Proto> target, String logFileName) throws IOException {
+        List<ProtoMapping> mapping = new ArrayList<>();
+        FileWriter logger = new FileWriter(logFileName, true);
+        logger.write(String.format("Comparing protos..\n"));
+        System.out.println(String.format("Comparing protos."));
+        logger.write(String.format("Source protos: %d\n", source.size()));
+        System.out.println(String.format("Source protos: %d", source.size()));
+        logger.write(String.format("Target protos: %d\n", target.size()));
+        System.out.println(String.format("Target protos: %d", target.size()));
+
+        for (Proto proto : source) {
+            int i = 0;
+            int count = 0;
+            while (i < target.size()) {
+                Proto t = target.get(i);
+                if (proto.sameMapPic(t) && proto.sameInventoryPic(t)) {
+                    if (count > 0) {
+                        if (logLevel <= LogLevel.warn.ordinal()) {
+                            String message = String.format("[Warning] Multiple match found for art: [%s %s] (%d, %d) (%s %s)\n",
+                                    proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                            logger.write(message);
+                            System.out.print(message);
+                        }
+                    }
+                    ProtoMapping protoMapping = new ProtoMapping(proto.getProtoId(), t.getProtoId(), proto.getPicMap(), proto.getPicInv(),
+                            proto.getSourceFile(), t.getSourceFile());
+                    mapping.add(protoMapping);
+                    count++;
+                    if (logLevel <= LogLevel.info.ordinal()) {
+                        String message = String.format("[Info] Art: [%s %s] (%d, %d) (%s %s)\n",
+                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                        logger.write(message);
+                        System.out.print(message);
+                    }
+                }
+                i++;
+                if (i >= target.size() && count == 0) {
+                    if (logLevel <= LogLevel.warn.ordinal()) {
+                        String message = String.format("[Warning] No proto match found for: [%s %s] %d (%s)\n",
+                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), proto.getSourceFile());
+                        logger.write(message);
+                        System.out.print(message);
+                    }
+                }
+            }
+        }
+
+        logger.write(String.format("Finished comparing protos.\n"));
+        System.out.println(String.format("Finished comparing protos."));
+
+        logger.close();
+        Collections.sort(mapping);
+        return mapping;
+    }
+
     public Map<Integer, Integer> compareProtos(List<Proto> source, List<Proto> target, String logFileName) throws IOException {
         Map map = new TreeMap<Integer, Integer>();
         FileWriter logger = new FileWriter(logFileName, true);
@@ -503,6 +559,27 @@ public class Parser {
         for (Map.Entry<Integer, Integer> entry : mapping.entrySet()) {
             outPutter.write(String.format("%d %d\n", entry.getKey(), entry.getValue()));
             System.out.println(String.format("%d %d", entry.getKey(), entry.getValue()));
+        }
+
+        logger.write(String.format("Done.\n"));
+        System.out.println(String.format("Done."));
+
+        logger.close();
+        outPutter.close();
+    }
+
+    public void generateMappingVerbose(List<ProtoMapping> mapping, String outputFileName, String logFileName) throws IOException {
+        FileWriter outPutter = new FileWriter(outputFileName);
+        FileWriter logger = new FileWriter(logFileName, true);
+
+        logger.write(String.format("Generating mapping file..\n"));
+        System.out.println(String.format("Generating mapping file.."));
+
+        for (ProtoMapping p : mapping) {
+            String line = String.format("%d %d %s %s %s %s\n",
+                    p.getSourceProtoId(), p.getTargetProtoId(), p.getPicMap(), p.getPicInv(), p.getSourceFile(), p.getTargetFile());
+            outPutter.write(line);
+            System.out.print(line);
         }
 
         logger.write(String.format("Done.\n"));

@@ -3,7 +3,7 @@ package net.fodev.model;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Proto implements Comparable<Proto>{
+public class Proto implements Comparable<Proto> {
 
     //  these are important for comparison and reference
     @Getter @Setter private Integer protoId;
