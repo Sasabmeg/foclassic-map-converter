@@ -14,6 +14,16 @@ public class Proto implements Comparable<Proto>{
     //  less important ones for now, only for cleaner warnings in logs
 
     //  generic
+    @Getter @Setter private Integer animHide0;
+    @Getter @Setter private Integer animHide1;
+    @Getter @Setter private Integer animShow0;
+    @Getter @Setter private Integer animShow1;
+    @Getter @Setter private Integer animStay0;
+    @Getter @Setter private Integer animStay1;
+    @Getter @Setter private Integer animWaitBase;
+    @Getter @Setter private Integer animWaitRndMax;
+    @Getter @Setter private Integer animWaitRndMin;
+    @Getter @Setter private Integer corner;
     @Getter @Setter private Integer cost;
     @Getter @Setter private Integer craftLevel;
     @Getter @Setter private String deteriorable;
@@ -31,6 +41,7 @@ public class Proto implements Comparable<Proto>{
     @Getter @Setter private Integer soundId;
     @Getter @Setter private String stackable;
     @Getter @Setter private Integer startCount;
+    @Getter @Setter private Integer startValue1;
     @Getter @Setter private String type;
     @Getter @Setter private Integer volume;
     @Getter @Setter private Integer weight;
@@ -69,8 +80,30 @@ public class Proto implements Comparable<Proto>{
     @Getter @Setter private Integer armorDtPlasma;
     @Getter @Setter private Integer armorPerk;
 
+    //  blueprint (type = 20)
+    @Getter @Setter private Integer blueprintId;
+    @Getter @Setter private Integer blueprintLevel;
+    @Getter @Setter private Integer blueprintParam;
+    @Getter @Setter private Integer blueprintType;
 
-    @Getter @Setter private Integer corner;
+    //  car (type = 13)
+    @Getter @Setter private String blockLines;
+    @Getter @Setter private Integer carCrittersCapacity;
+    @Getter @Setter private Integer carDeteriorationRate;
+    @Getter @Setter private Integer carEntrance;
+    @Getter @Setter private Integer carFuelConsumption;
+    @Getter @Setter private Integer carMaxDeterioration;
+    @Getter @Setter private Integer carMovementType;
+    @Getter @Setter private Integer carPassability;
+    @Getter @Setter private Integer carSpeed;
+    @Getter @Setter private Integer carTankVolume;
+    @Getter @Setter private String childLines0;
+    @Getter @Setter private String childLines1;
+    @Getter @Setter private Integer childPid0;
+    @Getter @Setter private Integer childPid1;
+    @Getter @Setter private Integer childPid2;
+
+
     @Getter @Setter private Integer offsetX;
     @Getter @Setter private Integer offsetY;
     @Getter @Setter private Integer spriteCut;
@@ -78,9 +111,6 @@ public class Proto implements Comparable<Proto>{
     @Getter @Setter private String weaponAnim2_0;
     @Getter @Setter private String weaponAnim2_1;
 
-    @Getter @Setter private Integer animWaitBase;
-    @Getter @Setter private Integer animWaitRndMin;
-    @Getter @Setter private Integer animWaitRndMax;
 
 
     public Proto() {

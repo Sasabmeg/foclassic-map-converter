@@ -81,6 +81,26 @@ public class Parser {
                                             //  added for completeness, only foclassic proto id's
 
                                             //  generic
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimHide_0")) {
+                                                proto.setAnimHide0(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimHide_1")) {
+                                                proto.setAnimHide1(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimShow_0")) {
+                                                proto.setAnimShow0(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimShow_1")) {
+                                                proto.setAnimShow1(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimStay_0")) {
+                                                proto.setAnimStay0(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimStay_1")) {
+                                                proto.setAnimStay1(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimWaitBase")) {
+                                                proto.setAnimWaitBase(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimWaitRndMax")) {
+                                                proto.setAnimWaitRndMax(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("AnimWaitRndMin")) {
+                                                proto.setAnimWaitRndMin(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Corner")) {
+                                                proto.setCorner(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Cost")) {
                                                 proto.setCost(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("CraftLevel")) {
@@ -115,6 +135,8 @@ public class Parser {
                                                 proto.setStackable(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("StartCount")) {
                                                 proto.setStartCount(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("StartValue_1")) {
+                                                proto.setStartValue1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Type")) {
                                                 proto.setType(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weight")) {
@@ -186,6 +208,47 @@ public class Parser {
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_Perk")) {
                                                 proto.setArmorPerk(Integer.parseInt(keyValue[1]));
 
+                                            //  blueprint
+                                            } else if (keyValue[0].equalsIgnoreCase("Blueprint_Id")) {
+                                                proto.setBlueprintId(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Blueprint_Level")) {
+                                                proto.setBlueprintLevel(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Blueprint_Param")) {
+                                                proto.setBlueprintParam(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Blueprint_Type")) {
+                                                proto.setBlueprintType(Integer.parseInt(keyValue[1]));
+
+                                            //  car
+                                            } else if (keyValue[0].equalsIgnoreCase("BlockLines")) {
+                                                proto.setBlockLines(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_CrittersCapacity")) {
+                                                proto.setCarCrittersCapacity(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_DeteriorationRate")) {
+                                                proto.setCarDeteriorationRate(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_Entrance")) {
+                                                proto.setCarEntrance(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_FuelConsumption")) {
+                                                proto.setCarFuelConsumption(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_MaxDeterioration")) {
+                                                proto.setCarMaxDeterioration(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_MovementType")) {
+                                                proto.setCarMovementType(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_Passability")) {
+                                                proto.setCarPassability(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_Speed")) {
+                                                proto.setCarSpeed(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Car_TankVolume")) {
+                                                proto.setCarTankVolume(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("ChildLines_0")) {
+                                                proto.setChildLines0(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("ChildLines_1")) {
+                                                proto.setChildLines1(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("ChildPid_0")) {
+                                                proto.setChildPid0(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("ChildPid_1")) {
+                                                proto.setChildPid1(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("ChildPid_2")) {
+                                                proto.setChildPid2(Integer.parseInt(keyValue[1]));
 
 
                                                 /*
