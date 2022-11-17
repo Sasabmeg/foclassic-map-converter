@@ -8,19 +8,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Converter {
+
+    public enum LogLevel {
+        info,
+        warn,
+        error
+    }
+
+    private int logLevel = 0;
+
+    public void setLogLevel(String logLevel) {
+        if ("warning".equalsIgnoreCase(logLevel) || "warn".equalsIgnoreCase(logLevel)) {
+            this.logLevel = 1;
+        } else if ("error".equalsIgnoreCase(logLevel)) {
+            this.logLevel = 2;
+        } else {
+            this.logLevel = 0;
+        }
+    }
+
     Map<Integer, Integer> map;
 
     public Converter() {
-        map = new HashMap<Integer, Integer>();
+        map = new HashMap<>();
     }
 
     public void mapFromFile(String fileName, String logFileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        FileWriter logger = new FileWriter(logFileName);
+        FileWriter logger = new FileWriter(logFileName, true);
         String line;
         int lineIndex = 0;
         logger.write("Processing conversion file.\n");
-        System.out.print("Processing conversion file... ");
+        System.out.print("Processing conversion file.");
         while ((line = br.readLine()) != null) {
             lineIndex++;
             String[] keyValue = line.split("\\s+");
@@ -30,17 +49,20 @@ public class Converter {
                     Integer value = Integer.parseInt(keyValue[1]);
                     map.put(key, value);
                 } catch (NumberFormatException e) {
-                    logger.write(String.format("[Warning] Line %d: (%s, %s) pair not numeric format, skipped line.\n", lineIndex, keyValue[0], keyValue[1]));
-                    //System.out.println(String.format("[Warning] Line %d: (%s, %s) pair not numeric format, skipped line.", lineIndex, keyValue[0], keyValue[1]));
+                    if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                        String message = String.format("[Warning] Line %d: (%s, %s) pair not numeric format, skipped line.\n", lineIndex, keyValue[0], keyValue[1]);
+                        logger.write(message);
+                        System.out.print(message);
+                    }
                 }
             } else {
-                logger.write(String.format("[Warning] Line %d: Insufficient parameters, skipped line.\n", lineIndex));
-                //System.out.println(String.format("[Warning] Line %d: Insufficient parameters, skipped line.", lineIndex));
+                if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                    String message = String.format("[Warning] Line %d: Insufficient parameters, skipped line.\n", lineIndex);
+                    logger.write(message);
+                    System.out.print(message);
+                }
             }
-            //System.out.println(line);
         }
-        //System.out.println("Mappings: ");
-        //printMap();
         System.out.println("done.");
         logger.close();
 
@@ -72,22 +94,37 @@ public class Converter {
                         Integer converted = map.get(value);
                         if (converted != null) {
                             outputter.write(String.format("%s%s%s\n", keyValue[0], spacing, converted));
-                            logger.write(String.format("[Info] Line %d: %s converted: %s -> %d\n", lineIndex, keyValue[0], keyValue[1], converted));
-                            //System.out.println(String.format("[Info] Line %d: %s converted: %s -> %d", lineIndex, keyValue[0], keyValue[1], converted));
+                            if (logLevel <= Converter.LogLevel.info.ordinal()) {
+                                String message = String.format("[Info] Line %d: %s converted: %s -> %d\n",
+                                        lineIndex, keyValue[0], keyValue[1], converted);
+                                logger.write(message);
+                                System.out.print(message);
+                            }
                         } else {
                             outputter.write(line + "\n");
-                            logger.write(String.format("[Info] Line %d: ProtoId %s not found in conversion map, leaving line unchanged.\n", lineIndex, keyValue[1]));
-                            //System.out.println(String.format("[Info] Line %d: ProtoId %s not found in conversion map, leaving line unchanged.", lineIndex, keyValue[1]));
+                            if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                                String message = String.format("[Warning] Line %d: ProtoId %s not found in conversion map, leaving line unchanged.\n",
+                                        lineIndex, keyValue[1]);
+                                logger.write(message);
+                                System.out.print(message);
+                            }
                         }
                     } catch (NumberFormatException e) {
                         outputter.write(line + "\n");
-                        logger.write(String.format("[Warning] Line %d: Second parameter (%s, %s) not numeric format, leaving line unchanged.\n", lineIndex, keyValue[0], keyValue[1]));
-                        //System.out.println(String.format("[Warning] Line %d: Second parameter (%s, %s) not numeric format, leaving line unchanged.", lineIndex, keyValue[0], keyValue[1]));
+                        if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                            String message = String.format("[Warning] Line %d: Second parameter (%s, %s) not numeric format, leaving line unchanged.\n",
+                                    lineIndex, keyValue[0], keyValue[1]);
+                            logger.write(message);
+                            System.out.print(message);
+                        }
                     }
                 } else {
                     outputter.write(line + "\n");
-                    logger.write(String.format("[Warning] Line %d: Insufficient parameters, leaving line unchanged.\n", lineIndex));
-                    //System.out.println(String.format("[Warning] Line %d: Insufficient parameters, leaving line unchanged.", lineIndex));
+                    if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                        String message = String.format("[Warning] Line %d: Insufficient parameters, leaving line unchanged.\n", lineIndex);
+                        logger.write(message);
+                        System.out.print(message);
+                    }
                 }
             } else {
                 //  ignore line, not relevant
