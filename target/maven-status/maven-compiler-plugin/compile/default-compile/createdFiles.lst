@@ -1,5 +1,7 @@
 net\fodev\Main.class
-net\fodev\controller\Parser$LogLevel.class
 net\fodev\model\Proto.class
-net\fodev\controller\Converter.class
+net\fodev\controller\Converter$LogLevel.class
 net\fodev\controller\Parser.class
+net\fodev\model\ProtoMapping.class
+net\fodev\controller\Parser$LogLevel.class
+net\fodev\controller\Converter.class
