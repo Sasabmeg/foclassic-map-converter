@@ -28,27 +28,35 @@ public class Proto implements Comparable<Proto>{
     @Getter @Setter private Integer craftLevel;
     @Getter @Setter private String deteriorable;
     @Getter @Setter private String disableEgg;
+    @Getter @Setter private Integer drawOrderOffsetHexY;
     @Getter @Setter private Integer flags;
+    @Getter @Setter private Integer groundLevel;
     @Getter @Setter private Integer lightDistance;
     @Getter @Setter private Integer lightIntensity;
     @Getter @Setter private Integer lightColor;
     @Getter @Setter private String material;
     @Getter @Setter private Integer miscChargeMax;
     @Getter @Setter private Integer needBlueprint;
+    @Getter @Setter private Integer offsetX;
+    @Getter @Setter private Integer offsetY;
     @Getter @Setter private String scriptFunc;
     @Getter @Setter private String scriptModule;
-    @Getter @Setter private Integer slot;
+    @Getter @Setter private String slot;
     @Getter @Setter private Integer soundId;
+    @Getter @Setter private Integer spriteCut;
     @Getter @Setter private String stackable;
     @Getter @Setter private Integer startCount;
     @Getter @Setter private Integer startValue1;
     @Getter @Setter private String type;
     @Getter @Setter private Integer volume;
+    @Getter @Setter private String weaponAnim1;
+    @Getter @Setter private String weaponAnim2_0;
+    @Getter @Setter private String weaponAnim2_1;
     @Getter @Setter private Integer weight;
 
     //  ammo (type = 4)
     @Getter @Setter private Integer ammoAcMod;
-    @Getter @Setter private Integer ammoCaliber;
+    @Getter @Setter private String ammoCaliber;
     @Getter @Setter private Integer ammoDmgDiv;
     @Getter @Setter private Integer ammoDmgMult;
     @Getter @Setter private Integer ammoDrMod;
@@ -103,15 +111,77 @@ public class Proto implements Comparable<Proto>{
     @Getter @Setter private Integer childPid1;
     @Getter @Setter private Integer childPid2;
 
+    //  container (type = ..many..)
+    @Getter @Setter private Integer containerCannotPickUp;
+    @Getter @Setter private Integer containerChangeble;
+    @Getter @Setter private Integer containerMagicHandsGrnd;
+    @Getter @Setter private Integer containerVolume;
+    @Getter @Setter private Integer lockerCondition;
 
-    @Getter @Setter private Integer offsetX;
-    @Getter @Setter private Integer offsetY;
-    @Getter @Setter private Integer spriteCut;
-    @Getter @Setter private String weaponAnim1;
-    @Getter @Setter private String weaponAnim2_0;
-    @Getter @Setter private String weaponAnim2_1;
+    //  door
+    @Getter @Setter private Integer doorNoBlockLight;
+    @Getter @Setter private Integer doorNoBlockMove;
+    @Getter @Setter private Integer doorNoBlockShoot;
 
+    //  drug
+    @Getter @Setter private Integer ingredientType1;
+    @Getter @Setter private Integer ingredientReturns1;
 
+    //  grid
+    @Getter @Setter private Integer gridType;
+
+    //  misc
+    @Getter @Setter private Integer holodiscNum;
+    @Getter @Setter private Integer miscToolSkillBonus;
+    @Getter @Setter private Integer miscToolSkillNum;
+    @Getter @Setter private Integer radioBroadcastSend;
+    @Getter @Setter private Integer radioChannel;
+    @Getter @Setter private Integer revealSneakers;
+    @Getter @Setter private Integer startValue2;
+    @Getter @Setter private Integer startValue3;
+
+    //  weapon
+    @Getter @Setter private Integer weaponActiveUses;
+    @Getter @Setter private String weaponAim0;
+    @Getter @Setter private String weaponAim1;
+    @Getter @Setter private Integer weaponApCost0;
+    @Getter @Setter private Integer weaponApCost1;
+    @Getter @Setter private String weaponCaliber;
+    @Getter @Setter private Integer weaponCriticalFailure;
+    @Getter @Setter private Integer weaponDefaultAmmoPid;
+    @Getter @Setter private Integer weaponDmgMax0;
+    @Getter @Setter private Integer weaponDmgMax1;
+    @Getter @Setter private Integer weaponDmgMin0;
+    @Getter @Setter private Integer weaponDmgMin1;
+    @Getter @Setter private String weaponDmgType0;
+    @Getter @Setter private String weaponDmgType1;
+    @Getter @Setter private String weaponDmgType2;
+    @Getter @Setter private Integer weaponEffect0;
+    @Getter @Setter private Integer weaponEffect1;
+    @Getter @Setter private String weaponIsUnarmed;
+    @Getter @Setter private Integer weaponMaxAmmoCount;
+    @Getter @Setter private Integer weaponMaxDist0;
+    @Getter @Setter private Integer weaponMaxDist1;
+    @Getter @Setter private Integer weaponMinStrength;
+    @Getter @Setter private Integer weaponNoRunning;
+    @Getter @Setter private String weaponPerk;
+    @Getter @Setter private String weaponPicUse0;
+    @Getter @Setter private String weaponPicUse1;
+    @Getter @Setter private String weaponPicUse2;
+    @Getter @Setter private String weaponRemove0;
+    @Getter @Setter private String weaponRemove1;
+    @Getter @Setter private Integer weaponRound0;
+    @Getter @Setter private Integer weaponRound1;
+    @Getter @Setter private String weaponSkill0;
+    @Getter @Setter private String weaponSkill1;
+    @Getter @Setter private String weaponSkill2;
+    @Getter @Setter private Integer weaponSoundId0;
+    @Getter @Setter private Integer weaponSoundId1;
+    @Getter @Setter private Integer weaponUnarmedMinAgility;
+    @Getter @Setter private Integer weaponUnarmedMinLevel;
+    @Getter @Setter private Integer weaponUnarmedMinUnarmed;
+    @Getter @Setter private Integer weaponUnarmedPriority;
+    @Getter @Setter private String weaponUnarmedTree;
 
     public Proto() {
         protoId = 0;
