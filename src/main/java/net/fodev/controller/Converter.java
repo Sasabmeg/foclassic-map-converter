@@ -38,8 +38,9 @@ public class Converter {
         FileWriter logger = new FileWriter(logFileName, true);
         String line;
         int lineIndex = 0;
-        logger.write("Processing conversion file.\n");
-        System.out.print("Processing conversion file.");
+        String msg = "Processing conversion file.\n";
+        logger.write(msg);
+        System.out.print(msg);
         while ((line = br.readLine()) != null) {
             lineIndex++;
             String[] keyValue = line.split("\\s+");
@@ -63,7 +64,7 @@ public class Converter {
                 }
             }
         }
-        System.out.println("done.");
+        System.out.println("Done.");
         logger.close();
 
     }
@@ -80,8 +81,9 @@ public class Converter {
         int lineIndex = 0;
         FileWriter outputter = new FileWriter(outputFileName);
         FileWriter logger = new FileWriter(logFileName, true);
-        logger.write(String.format("Converting '%s' into '%s'.\n", inputFileName, outputFileName));
-        System.out.print(String.format("Converting '%s' into '%s'... ", inputFileName, outputFileName));
+        String msg = String.format("Converting '%s' into '%s'.\n", inputFileName, outputFileName);
+        logger.write(msg);
+        System.out.print(msg);
         while ((line = br.readLine()) != null) {
             lineIndex++;
             String key = "ProtoId";
@@ -131,7 +133,7 @@ public class Converter {
                 outputter.write(line + "\n");
             }
         }
-        System.out.println("done.");
+        System.out.println("Done.");
         outputter.close();
         logger.close();
     }

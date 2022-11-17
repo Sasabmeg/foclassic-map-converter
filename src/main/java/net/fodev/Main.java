@@ -3,6 +3,7 @@ package net.fodev;
 import net.fodev.controller.Converter;
 import net.fodev.controller.Parser;
 import net.fodev.model.Proto;
+import net.fodev.model.ProtoMapping;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -86,8 +87,8 @@ public class Main {
                     parser.setLogLevel(logLevel);
                     List<Proto> source = parser.parseFromFile(mappingFileFrom, logParseFile);
                     List<Proto> target = parser.parseFromFile(mappingFileTo, logParseFile);
-                    Map<Integer, Integer> mapping = parser.compareProtos(source, target, logParseFile);
-                    parser.generateMapping(mapping, generateMappingFile, logParseFile);
+                    List<ProtoMapping> mapping = parser.compareProtosVerbose(source, target, logParseFile);
+                    parser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
                 } catch (IOException e) {
                     String message = String.format("[Error] %s\n", e.getMessage());
                     System.out.print(message);
@@ -106,8 +107,8 @@ public class Main {
                     parser.setLogLevel(logLevel);
                     List<Proto> source = parser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
                     List<Proto> target = parser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
-                    Map<Integer, Integer> mapping = parser.compareProtos(source, target, logParseFile);
-                    parser.generateMapping(mapping, generateMappingFile, logParseFile);
+                    List<ProtoMapping> mapping = parser.compareProtosVerbose(source, target, logParseFile);
+                    parser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
                 } catch (IOException e) {
                     String message = String.format("[Error] %s", e.getMessage());
                     System.out.println(message);
@@ -128,6 +129,8 @@ public class Main {
         if (protoMappingFile != null) {
             if (mapSourceFile != null && mapTargetFile != null) {
                 try {
+                    Files.deleteIfExists(Paths.get(logConversionFile));
+                    Files.deleteIfExists(Paths.get(mapTargetFile));
                     converter.mapFromFile(protoMappingFile, logConversionFile);
                     converter.convertFile(mapSourceFile, mapTargetFile, logConversionFile);
                 } catch (IOException e) {
