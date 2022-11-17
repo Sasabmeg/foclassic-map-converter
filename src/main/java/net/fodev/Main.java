@@ -38,7 +38,10 @@ public class Main {
                 .help("Specify ");
         argumentParser.addArgument("-pm", "--protoMapping")
                 .help("Specify proto ID mapping file to use to convert map file.");
-
+        argumentParser.addArgument("-ms", "--mapSourceFile")
+                .help("Specify fomap file to convert.");
+        argumentParser.addArgument("-mt", "--mapTargetFile")
+                .help("Specify fomap file name as conversion result.");
 
         argumentParser.addArgument("-lp", "--logPath")
                 .help("Specify a path (folder/directory) for log files.");
@@ -57,59 +60,88 @@ public class Main {
         String mappingFileFrom = ns.getString("proto1");
         String mappingFileTo = ns.getString("proto2");
         List<String> mappingFilesFrom = ns.getList("protoFiles1");
-        //mappingFilesFrom.forEach(System.out::println);
         List<String> mappingFilesTo = ns.getList("protoFiles2");
-        //mappingFilesTo.forEach(System.out::println);
         String generateMappingFile = ns.getString("generateMappingFile");
+        String protoMappingFile = ns.getString("protoMapping");
+        String mapSourceFile = ns.getString("mapSourceFile");
+        String mapTargetFile = ns.getString("mapTargetFile");
+
         String logFolder = ns.getString("logPath");
         String logLevel = ns.getString("logLevel");
-        String logFile = "lastParse.log";
+        String logParseFile = "lastParse.log";
+        String logConversionFile = "lastConversion.log";
         if (logFolder != null) {
-            logFile = logFolder + "/" + logFile;
+            logParseFile = logFolder + "/" + logParseFile;
+            logConversionFile = logFolder + "/" + logConversionFile;
         }
         if (generateMappingFile != null) {
             if (mappingFileFrom != null && mappingFileTo != null) {
                 try {
-                    Files.deleteIfExists(Paths.get(logFile));
+                    Files.deleteIfExists(Paths.get(logParseFile));
                     Files.deleteIfExists(Paths.get(generateMappingFile));
                     String message = String.format("Generating mapping file %s, mapping from %s to %s.", generateMappingFile, mappingFileFrom, mappingFileTo);
                     System.out.println(message);
-                    Parser.logLine(message + "\n", logFile);
+                    Parser.logLine(message + "\n", logParseFile);
                     Parser parser = new Parser();
                     parser.setLogLevel(logLevel);
-                    List<Proto> source = parser.parseFromFile(mappingFileFrom, logFile);
-                    List<Proto> target = parser.parseFromFile(mappingFileTo, logFile);
-                    Map<Integer, Integer> mapping = parser.compareProtos(source, target, logFile);
-                    parser.generateMapping(mapping, generateMappingFile, logFile);
+                    List<Proto> source = parser.parseFromFile(mappingFileFrom, logParseFile);
+                    List<Proto> target = parser.parseFromFile(mappingFileTo, logParseFile);
+                    Map<Integer, Integer> mapping = parser.compareProtos(source, target, logParseFile);
+                    parser.generateMapping(mapping, generateMappingFile, logParseFile);
                 } catch (IOException e) {
-                    String message = String.format("[Error] %s", e.getMessage());
-                    System.out.println(message);
-                    Parser.logLine(message + "\n", logFile);
+                    String message = String.format("[Error] %s\n", e.getMessage());
+                    System.out.print(message);
+                    Parser.logLine(message, logParseFile);
                     e.printStackTrace();
                 }
             } else if (mappingFilesFrom != null && mappingFilesTo != null) {
                 try {
-                    Files.deleteIfExists(Paths.get(logFile));
+                    Files.deleteIfExists(Paths.get(logParseFile));
                     Files.deleteIfExists(Paths.get(generateMappingFile));
                     String message = String.format("Generating mapping file %s using from multiple source and target files\nSource: %s\nTarget: %s",
                             generateMappingFile, Arrays.toString(mappingFilesFrom.toArray()), Arrays.toString(mappingFilesTo.toArray()));
                     System.out.println(message);
-                    Parser.logLine(message + "\n", logFile);
+                    Parser.logLine(message + "\n", logParseFile);
                     Parser parser = new Parser();
                     parser.setLogLevel(logLevel);
-                    List<Proto> source = parser.parseFromMultipleFiles(mappingFilesFrom, logFile);
-                    List<Proto> target = parser.parseFromMultipleFiles(mappingFilesTo, logFile);
-                    Map<Integer, Integer> mapping = parser.compareProtos(source, target, logFile);
-                    parser.generateMapping(mapping, generateMappingFile, logFile);
+                    List<Proto> source = parser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
+                    List<Proto> target = parser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
+                    Map<Integer, Integer> mapping = parser.compareProtos(source, target, logParseFile);
+                    parser.generateMapping(mapping, generateMappingFile, logParseFile);
                 } catch (IOException e) {
                     String message = String.format("[Error] %s", e.getMessage());
                     System.out.println(message);
-                    Parser.logLine(message + "\n", logFile);
+                    Parser.logLine(message + "\n", logParseFile);
                     e.printStackTrace();
                 }
             } else {
-                System.out.println(String.format("Cannot generate mapping file without two proto ID files.\nHint: try parameters like '-gmf filename -p1 filename1 -p2 filename2'."));
+                String message = String.format("[Error] Cannot generate mapping file without two proto ID files.\nHint: try parameters like '-gmf filename -p1 filename1 -p2 filename2'.");
+                System.out.print(message);
+                Parser.logLine(message, logParseFile);
             }
         }
+
+        Converter converter = new Converter();
+        if (logLevel != null) {
+            converter.setLogLevel(logLevel);
+        }
+        if (protoMappingFile != null) {
+            if (mapSourceFile != null && mapTargetFile != null) {
+                try {
+                    converter.mapFromFile(protoMappingFile, logConversionFile);
+                    converter.convertFile(mapSourceFile, mapTargetFile, logConversionFile);
+                } catch (IOException e) {
+                    String message = String.format("[Error] %s\n", e.getMessage());
+                    System.out.print(message);
+                    Parser.logLine(message, logConversionFile);
+                    e.printStackTrace();
+                }
+            } else {
+                String message = String.format("[Error] Cannot convert map file with missing in/out parameters. Switch '--protoMapping' must be used with valid '--mapSourceFile' and '--mapTargetFile'.\n");
+                System.out.print(message);
+                Parser.logLine(message, logConversionFile);
+            }
+        }
+
     }
 }
