@@ -65,70 +65,167 @@ public class Parser {
                                     String[] keyValue = line.split("=");
                                     try {
                                         if (keyValue.length > 1) {
+                                            proto.setSourceFile(fileName);
                                             if (ignoreList.contains(keyValue[0])) {
                                                 //  do nothing
+
+                                            //  important properties, used for comparison and reference
                                             } else if (keyValue[0].equalsIgnoreCase("ProtoId")) {
                                                 proto.setProtoId(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("Type")) {
-                                                proto.setType(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("PicMap")) {
                                                 proto.setPicMap(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("PicInv")) {
                                                 proto.setPicInv(keyValue[1]);
+
+                                            //  these are not important for now, only to ensure less warning in log
+                                            //  added for completeness, only foclassic proto id's
+
+                                            //  generic
+                                            } else if (keyValue[0].equalsIgnoreCase("Cost")) {
+                                                proto.setCost(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("CraftLevel")) {
+                                                proto.setCraftLevel(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Deteriorable")) {
+                                                proto.setDeteriorable(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("DisableEgg")) {
+                                                proto.setDisableEgg(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Flags")) {
                                                 proto.setFlags(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("SoundId")) {
-                                                proto.setSound(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("Material")) {
-                                                proto.setMaterial(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("Corner")) {
-                                                proto.setCorner(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("DisableEgg")) {
-                                                proto.setDisableEgg(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("LightDistance")) {
                                                 proto.setLightDistance(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("LightIntensity")) {
                                                 proto.setLightIntensity(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("LightColor")) {
                                                 proto.setLightColor(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("OffsetX")) {
-                                                proto.setOffsetX(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("OffsetY")) {
-                                                proto.setOffsetY(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Material")) {
+                                                proto.setMaterial(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("Misc_ChargeMax")) {
+                                                proto.setMiscChargeMax(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("NeedBlueprint")) {
+                                                proto.setNeedBlueprint(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("ScriptFunc")) {
+                                                proto.setScriptFunc(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("ScriptModule")) {
+                                                proto.setScriptModule(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("Slot")) {
+                                                proto.setSlot(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("SoundId")) {
+                                                proto.setSoundId(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Stackable")) {
+                                                proto.setStackable(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("StartCount")) {
+                                                proto.setStartCount(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Type")) {
+                                                proto.setType(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weight")) {
                                                 proto.setWeight(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim1")) {
-                                                proto.setWeaponAnim1(keyValue[1]);
-                                            } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim2_0")) {
-                                                proto.setWeaponAnim2_0(keyValue[1]);
-                                            } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim2_1")) {
-                                                proto.setWeaponAnim2_1(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("Volume")) {
+                                                proto.setVolume(Integer.parseInt(keyValue[1]));
+
+                                            //  ammo
+                                            } else if (keyValue[0].equalsIgnoreCase("Ammo_AcMod")) {
+                                                proto.setAmmoAcMod(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Ammo_Caliber")) {
+                                                proto.setAmmoCaliber(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Ammo_DmgDiv")) {
+                                                proto.setAmmoDmgDiv(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Ammo_DmgMult")) {
+                                                proto.setAmmoDmgMult(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Ammo_DrMod")) {
+                                                proto.setAmmoDrMod(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Ammo_DTDiv")) {
+                                                proto.setAmmoDtDiv(Integer.parseInt(keyValue[1]));
+
+                                            //  armor
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_AC")) {
+                                                proto.setArmorAc(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CMCritChance")) {
+                                                proto.setArmorCmCritChance(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CMCritPower")) {
+                                                proto.setArmorCmCritPower(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeFemale")) {
+                                                proto.setArmorCrTypeFemale(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeFemale2")) {
+                                                proto.setArmorCrTypeFemale2(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale")) {
+                                                proto.setArmorCrTypeMale(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale2")) {
+                                                proto.setArmorCrTypeMale2(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale3")) {
+                                                proto.setArmorCrTypeMale3(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale4")) {
+                                                proto.setArmorCrTypeMale4(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DRElectr")) {
+                                                proto.setArmorDrElectr(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DREmp")) {
+                                                proto.setArmorDrEmp(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DRExplode")) {
+                                                proto.setArmorDrExplode(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DRFire")) {
+                                                proto.setArmorDrFire(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DRLaser")) {
+                                                proto.setArmorDrLaser(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DRNormal")) {
+                                                proto.setArmorDrNormal(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DRPlasma")) {
+                                                proto.setArmorDrPlasma(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTElectr")) {
+                                                proto.setArmorDtElectr(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTEmp")) {
+                                                proto.setArmorDtEmp(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTExplode")) {
+                                                proto.setArmorDtExplode(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTFire")) {
+                                                proto.setArmorDtFire(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTLaser")) {
+                                                proto.setArmorDtLaser(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTNormal")) {
+                                                proto.setArmorDtNormal(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_DTPlasma")) {
+                                                proto.setArmorDtPlasma(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Armor_Perk")) {
+                                                proto.setArmorPerk(Integer.parseInt(keyValue[1]));
+
+
+
+                                                /*
                                             } else if (keyValue[0].equalsIgnoreCase("AnimWaitBase")) {
                                                 proto.setAnimWaitBase(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimWaitRndMin")) {
                                                 proto.setAnimWaitRndMin(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimWaitRndMax")) {
                                                 proto.setAnimWaitRndMax(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Corner")) {
+                                                proto.setCorner(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("OffsetX")) {
+                                                proto.setOffsetX(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("OffsetY")) {
+                                                proto.setOffsetY(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("ScriptModule")) {
                                                 proto.setScriptModule(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("ScriptFunc")) {
                                                 proto.setScriptFunc(keyValue[1]);
-                                            } else if (keyValue[0].equalsIgnoreCase("Volume")) {
-                                                proto.setVolume(Integer.parseInt(keyValue[1]));
-                                            } else if (keyValue[0].equalsIgnoreCase("Cost")) {
-                                                proto.setCost(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("SpriteCut")) {
                                                 proto.setSpriteCut(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Volume")) {
+                                                proto.setVolume(Integer.parseInt(keyValue[1]));
+                                            } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim1")) {
+                                                proto.setWeaponAnim1(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim2_0")) {
+                                                proto.setWeaponAnim2_0(keyValue[1]);
+                                            } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim2_1")) {
+                                                proto.setWeaponAnim2_1(keyValue[1]);
+
+                                                 */
                                             } else {
                                                 ignoreList.add(keyValue[0]);
                                                 if (logLevel <= LogLevel.warn.ordinal()) {
-                                                    String message = String.format("[Warning] Line %d: Unknown field (%s) found for proto. Ignoring any occurrences of '%s' in this file.", lineIndex, line, keyValue[0]);
+                                                    String message = String.format("[Warning] Line %d: Unknown field (%s) found for proto. Ignoring any occurrences of '%s' in %s.", lineIndex, line, keyValue[0], fileName);
                                                     logger.write(message + "\n");
                                                     System.out.println(message);
                                                 }
                                             }
                                         }
-                                        //System.out.println(Arrays.toString(keyValue));
                                     } catch (NumberFormatException e) {
                                         if (logLevel <= LogLevel.warn.ordinal()) {
                                             logger.write(String.format("[Warning] Line %d: %s\n", lineIndex, e.toString()));
@@ -177,25 +274,31 @@ public class Parser {
             int count = 0;
             while (i < target.size()) {
                 Proto t = target.get(i);
-                if (proto.getPicMap().equalsIgnoreCase(t.getPicMap())) {
+                if (proto.sameMapPic(t) && proto.sameInventoryPic(t)) {
                     if (count > 0) {
                         if (logLevel <= LogLevel.warn.ordinal()) {
-                            logger.write(String.format("[Warning] Multiple match found for art: %s (%d, %d)\n", proto.getPicMap(), proto.getProtoId(), t.getProtoId()));
-                            System.out.println(String.format("[Warning] Multiple match found art: %s (%d, %d)", proto.getPicMap(), proto.getProtoId(), t.getProtoId()));
+                            String message = String.format("[Warning] Multiple match found for art: [%s %s] (%d, %d) (%s %s)\n",
+                                    proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                            logger.write(message);
+                            System.out.print(message);
                         }
                     }
                     map.put(proto.getProtoId(), t.getProtoId());
                     count++;
                     if (logLevel <= LogLevel.info.ordinal()) {
-                        logger.write(String.format("[Info] %s: (%d, %d)\n", proto.getPicMap(), proto.getProtoId(), t.getProtoId()));
-                        System.out.println(String.format("(%d, %d)", proto.getProtoId(), t.getProtoId()));
+                        String message = String.format("[Info] Art: [%s %s] (%d, %d) (%s %s)\n",
+                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                        logger.write(message);
+                        System.out.print(message);
                     }
                 }
                 i++;
                 if (i >= target.size() && count == 0) {
                     if (logLevel <= LogLevel.warn.ordinal()) {
-                        logger.write(String.format("[Warning] No proto match found for: %s %d\n", proto.getPicMap(), proto.getProtoId()));
-                        System.out.println(String.format("[Warning] No proto match found for: %s %d", proto.getPicMap(), proto.getProtoId()));
+                        String message = String.format("[Warning] No proto match found for: [%s %s] %d (%s)\n",
+                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), proto.getSourceFile());
+                        logger.write(message);
+                        System.out.print(message);
                     }
                 }
             }

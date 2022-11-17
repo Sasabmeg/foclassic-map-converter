@@ -82,13 +82,16 @@ public class Main {
                     Map<Integer, Integer> mapping = parser.compareProtos(source, target, logFile);
                     parser.generateMapping(mapping, generateMappingFile, logFile);
                 } catch (IOException e) {
+                    String message = String.format("[Error] %s", e.getMessage());
+                    System.out.println(message);
+                    Parser.logLine(message + "\n", logFile);
                     e.printStackTrace();
                 }
             } else if (mappingFilesFrom != null && mappingFilesTo != null) {
                 try {
                     Files.deleteIfExists(Paths.get(logFile));
                     Files.deleteIfExists(Paths.get(generateMappingFile));
-                    String message = String.format("Generating mapping file %s, mapping from multiple source files: %s to multiple target files %s.",
+                    String message = String.format("Generating mapping file %s using from multiple source and target files\nSource: %s\nTarget: %s",
                             generateMappingFile, Arrays.toString(mappingFilesFrom.toArray()), Arrays.toString(mappingFilesTo.toArray()));
                     System.out.println(message);
                     Parser.logLine(message + "\n", logFile);
@@ -99,6 +102,9 @@ public class Main {
                     Map<Integer, Integer> mapping = parser.compareProtos(source, target, logFile);
                     parser.generateMapping(mapping, generateMappingFile, logFile);
                 } catch (IOException e) {
+                    String message = String.format("[Error] %s", e.getMessage());
+                    System.out.println(message);
+                    Parser.logLine(message + "\n", logFile);
                     e.printStackTrace();
                 }
             } else {
