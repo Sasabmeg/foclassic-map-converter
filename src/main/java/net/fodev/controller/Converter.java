@@ -75,13 +75,17 @@ public class Converter {
         });
     }
 
-    public void convertFile(String inputFileName, String outputFileName, String logFileName) throws IOException {
+    public void convertFile(String inputFileName, String outputFileName, String logFileName, String handleMissingProto, Integer missingProtoReplaceValue) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(inputFileName));
         String line;
         int lineIndex = 0;
         FileWriter outputter = new FileWriter(outputFileName);
         FileWriter logger = new FileWriter(logFileName, true);
-        String msg = String.format("Converting '%s' into '%s'.\n", inputFileName, outputFileName);
+        if (handleMissingProto == null) {
+            handleMissingProto = "ignore";
+        }
+        String msg = String.format("Converting '%s' into '%s', handling missing proto id's as: '%s' with default value: '%d' if applicable.\n",
+                inputFileName, outputFileName, handleMissingProto, missingProtoReplaceValue);
         logger.write(msg);
         System.out.print(msg);
         while ((line = br.readLine()) != null) {
@@ -103,12 +107,30 @@ public class Converter {
                                 System.out.print(message);
                             }
                         } else {
-                            outputter.write(line + "\n");
-                            if (logLevel <= Converter.LogLevel.warn.ordinal()) {
-                                String message = String.format("[Warning] Line %d: ProtoId %s not found in conversion map, leaving line unchanged.\n",
-                                        lineIndex, keyValue[1]);
-                                logger.write(message);
-                                System.out.print(message);
+                            if ("remove".equalsIgnoreCase(handleMissingProto)) {
+                                //  TODO remove whole object from map file, not just proto id line
+                                if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                                    String message = String.format("[Warning] Line %d: ProtoId %s not found in conversion map, removing line unchanged.\n",
+                                            lineIndex, keyValue[1]);
+                                    logger.write(message);
+                                    System.out.print(message);
+                                }
+                            } else if ("replace".equalsIgnoreCase(handleMissingProto)) {
+                                outputter.write(String.format("%s%s%s\n", keyValue[0], spacing, converted));
+                                if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                                    String message = String.format("[Warning] Line %d: ProtoId %s not found in conversion map, replacing value with %d.\n",
+                                            lineIndex, keyValue[1], missingProtoReplaceValue);
+                                    logger.write(message);
+                                    System.out.print(message);
+                                }
+                            } else {
+                                outputter.write(line + "\n");
+                                if (logLevel <= Converter.LogLevel.warn.ordinal()) {
+                                    String message = String.format("[Warning] Line %d: ProtoId %s not found in conversion map, leaving line unchanged.\n",
+                                            lineIndex, keyValue[1]);
+                                    logger.write(message);
+                                    System.out.print(message);
+                                }
                             }
                         }
                     } catch (NumberFormatException e) {

@@ -16,5 +16,9 @@ hs_err_pid*
 # Output of tests
 out/
 
+# Maps in resource files
+resources/tlamk2/maps/
+resources/tlamk2/maps/*.fomap
+
 # Idk, sometimes this clear with maven build from console, sometimes reappers with IntelliJ
 target/classes/

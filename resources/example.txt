@@ -1,3 +1,6 @@
+##	ONLY IF NEEDED - Run maven script to build/deploy executable jar if 'target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar' is not available.
+mvn clean compile assembly:single
+
 ##	Run the following commands from the main folder: [your_path_to_git_local]/foclassic-map-converter
 
 ##	Generate protoID mapping file from tlamk2 to foclassic, using al fopro files in the respective folders. 
@@ -9,6 +12,17 @@ java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar 
 ##	Convert the specified map using the mapping file generated with command above
 ##	Output will be the converted map file. Simple example use on cath_level1.fomap
 
-java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/cath_level1.fomap -mt out/cath_level1_converted.fomap -lp out -ll warning
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_tlamk2_ignored.fomap -lp out -ll warning
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_tlamk2_replaced.fomap -mph replace -rv 106 -lp out -ll warning 
+
+##	Manual mapping file should be made, to complete missing information if possible
+TODO
+
+##	Switch to use to change missing proto id's, default is unchanged, but one can change all values to same value easily recognizeable in mapper
+TODO
 
 
+
+
+
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_converted.fomap -lp out -ll warning

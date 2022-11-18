@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
@@ -25,6 +24,7 @@ public class Main {
         ArgumentParser argumentParser = ArgumentParsers.newFor("foclassic-map-converter").build()
                 .defaultHelp(true)
                 .description("Map converter between FOnline versions.");
+        //  create proto id mappings file
         argumentParser.addArgument("-p1", "--proto1")
                 .help("Specify first proto id file for conversion. (The file you convert proto ID's from.)");
         argumentParser.addArgument("-ps1", "--protoFiles1")
@@ -37,13 +37,20 @@ public class Main {
                 .help("Specify multiple proto id files for conversion. (The files you convert proto ID's to.)");
         argumentParser.addArgument("-gmf", "--generateMappingFile")
                 .help("Specify ");
+
+        //  use proto id mappings file to convert maps between different fonline versions
         argumentParser.addArgument("-pm", "--protoMapping")
                 .help("Specify proto ID mapping file to use to convert map file.");
         argumentParser.addArgument("-ms", "--mapSourceFile")
                 .help("Specify fomap file to convert.");
         argumentParser.addArgument("-mt", "--mapTargetFile")
                 .help("Specify fomap file name as conversion result.");
+        argumentParser.addArgument("-mph", "--missingProtoHandling")
+                .help("Specify fomap file name as conversion result.");
+        argumentParser.addArgument("-rv", "--replaceValue")
+                .help("Specify fomap file name as conversion result.");
 
+        //  logging related
         argumentParser.addArgument("-lp", "--logPath")
                 .help("Specify a path (folder/directory) for log files.");
         argumentParser.addArgument("-ll", "--logLevel")
@@ -58,15 +65,6 @@ public class Main {
             System.exit(1);
         }
 
-        String mappingFileFrom = ns.getString("proto1");
-        String mappingFileTo = ns.getString("proto2");
-        List<String> mappingFilesFrom = ns.getList("protoFiles1");
-        List<String> mappingFilesTo = ns.getList("protoFiles2");
-        String generateMappingFile = ns.getString("generateMappingFile");
-        String protoMappingFile = ns.getString("protoMapping");
-        String mapSourceFile = ns.getString("mapSourceFile");
-        String mapTargetFile = ns.getString("mapTargetFile");
-
         String logFolder = ns.getString("logPath");
         String logLevel = ns.getString("logLevel");
         String logParseFile = "lastParse.log";
@@ -75,6 +73,23 @@ public class Main {
             logParseFile = logFolder + "/" + logParseFile;
             logConversionFile = logFolder + "/" + logConversionFile;
         }
+
+        String mappingFileFrom = ns.getString("proto1");
+        String mappingFileTo = ns.getString("proto2");
+        List<String> mappingFilesFrom = ns.getList("protoFiles1");
+        List<String> mappingFilesTo = ns.getList("protoFiles2");
+        String generateMappingFile = ns.getString("generateMappingFile");
+        String protoMappingFile = ns.getString("protoMapping");
+        String mapSourceFile = ns.getString("mapSourceFile");
+        String mapTargetFile = ns.getString("mapTargetFile");
+        String missingProtoHandling = ns.getString("missingProtoHandling");
+        Integer replaceValue = 0;
+        try {
+            replaceValue = Integer.parseInt(ns.getString("replaceValue"));
+        } catch (NumberFormatException e) {
+            replaceValue = -1;
+        }
+
         if (generateMappingFile != null) {
             if (mappingFileFrom != null && mappingFileTo != null) {
                 try {
@@ -132,7 +147,7 @@ public class Main {
                     Files.deleteIfExists(Paths.get(logConversionFile));
                     Files.deleteIfExists(Paths.get(mapTargetFile));
                     converter.mapFromFile(protoMappingFile, logConversionFile);
-                    converter.convertFile(mapSourceFile, mapTargetFile, logConversionFile);
+                    converter.convertFile(mapSourceFile, mapTargetFile, logConversionFile, missingProtoHandling, replaceValue);
                 } catch (IOException e) {
                     String message = String.format("[Error] %s\n", e.getMessage());
                     System.out.print(message);
