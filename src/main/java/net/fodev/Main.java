@@ -1,7 +1,7 @@
 package net.fodev;
 
 import net.fodev.controller.Converter;
-import net.fodev.controller.Parser;
+import net.fodev.controller.ProtoParser;
 import net.fodev.model.Proto;
 import net.fodev.model.ProtoMapping;
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -97,17 +97,17 @@ public class Main {
                     Files.deleteIfExists(Paths.get(generateMappingFile));
                     String message = String.format("Generating mapping file %s, mapping from %s to %s.", generateMappingFile, mappingFileFrom, mappingFileTo);
                     System.out.println(message);
-                    Parser.logLine(message + "\n", logParseFile);
-                    Parser parser = new Parser();
-                    parser.setLogLevel(logLevel);
-                    List<Proto> source = parser.parseFromFile(mappingFileFrom, logParseFile);
-                    List<Proto> target = parser.parseFromFile(mappingFileTo, logParseFile);
-                    List<ProtoMapping> mapping = parser.compareProtosVerbose(source, target, logParseFile);
-                    parser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
+                    ProtoParser.logLine(message + "\n", logParseFile);
+                    ProtoParser protoParser = new ProtoParser();
+                    protoParser.setLogLevel(logLevel);
+                    List<Proto> source = protoParser.parseFromFile(mappingFileFrom, logParseFile);
+                    List<Proto> target = protoParser.parseFromFile(mappingFileTo, logParseFile);
+                    List<ProtoMapping> mapping = protoParser.compareProtosVerbose(source, target, logParseFile);
+                    protoParser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
                 } catch (IOException e) {
                     String message = String.format("[Error] %s\n", e.getMessage());
                     System.out.print(message);
-                    Parser.logLine(message, logParseFile);
+                    ProtoParser.logLine(message, logParseFile);
                     e.printStackTrace();
                 }
             } else if (mappingFilesFrom != null && mappingFilesTo != null) {
@@ -117,23 +117,23 @@ public class Main {
                     String message = String.format("Generating mapping file %s using from multiple source and target files\nSource: %s\nTarget: %s",
                             generateMappingFile, Arrays.toString(mappingFilesFrom.toArray()), Arrays.toString(mappingFilesTo.toArray()));
                     System.out.println(message);
-                    Parser.logLine(message + "\n", logParseFile);
-                    Parser parser = new Parser();
-                    parser.setLogLevel(logLevel);
-                    List<Proto> source = parser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
-                    List<Proto> target = parser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
-                    List<ProtoMapping> mapping = parser.compareProtosVerbose(source, target, logParseFile);
-                    parser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
+                    ProtoParser.logLine(message + "\n", logParseFile);
+                    ProtoParser protoParser = new ProtoParser();
+                    protoParser.setLogLevel(logLevel);
+                    List<Proto> source = protoParser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
+                    List<Proto> target = protoParser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
+                    List<ProtoMapping> mapping = protoParser.compareProtosVerbose(source, target, logParseFile);
+                    protoParser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
                 } catch (IOException e) {
                     String message = String.format("[Error] %s", e.getMessage());
                     System.out.println(message);
-                    Parser.logLine(message + "\n", logParseFile);
+                    ProtoParser.logLine(message + "\n", logParseFile);
                     e.printStackTrace();
                 }
             } else {
                 String message = String.format("[Error] Cannot generate mapping file without two proto ID files.\nHint: try parameters like '-gmf filename -p1 filename1 -p2 filename2'.");
                 System.out.print(message);
-                Parser.logLine(message, logParseFile);
+                ProtoParser.logLine(message, logParseFile);
             }
         }
 
@@ -151,13 +151,13 @@ public class Main {
                 } catch (IOException e) {
                     String message = String.format("[Error] %s\n", e.getMessage());
                     System.out.print(message);
-                    Parser.logLine(message, logConversionFile);
+                    ProtoParser.logLine(message, logConversionFile);
                     e.printStackTrace();
                 }
             } else {
                 String message = String.format("[Error] Cannot convert map file with missing in/out parameters. Switch '--protoMapping' must be used with valid '--mapSourceFile' and '--mapTargetFile'.\n");
                 System.out.print(message);
-                Parser.logLine(message, logConversionFile);
+                ProtoParser.logLine(message, logConversionFile);
             }
         }
 

@@ -18,6 +18,7 @@ out/
 
 # Maps in resource files
 resources/tlamk2/maps/
+resources/foclassic/maps/
 resources/tlamk2/maps/*.fomap
 
 # Idk, sometimes this clear with maven build from console, sometimes reappers with IntelliJ

@@ -6,7 +6,7 @@ import net.fodev.model.ProtoMapping;
 import java.io.*;
 import java.util.*;
 
-public class Parser {
+public class ProtoParser {
     public enum LogLevel {
         info,
         warn,
