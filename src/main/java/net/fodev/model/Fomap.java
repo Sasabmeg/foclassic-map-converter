@@ -29,6 +29,14 @@ public class Fomap {
         objects = new ArrayList<>();
     }
 
+    public List<FomapTile> getTiles() {
+        return tiles;
+    }
+
+    public List<FomapObject> getObjects() {
+        return objects;
+    }
+
     public void addTile(FomapTile tile) {
         tiles.add(tile);
     }

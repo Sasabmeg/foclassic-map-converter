@@ -19,6 +19,45 @@ public class FomapParser {
 
     private int logLevel = 0;
 
+    public int getLogLevel() {
+        return logLevel;
+    }
+
+    public void setLogLevel(int logLevel) {
+        this.logLevel = logLevel;
+    }
+
+    public void fomapToFile(Fomap fomap, String fileName, String logFileName) throws IOException {
+        FileWriter outputter = new FileWriter(fileName, false);
+        FileWriter logger = new FileWriter(logFileName, true);
+
+        String msg = String.format("Fomap to file: %s.\n", fileName);
+        logger.write(msg);
+        System.out.print(msg);
+
+        //  header
+        outputter.write(fomap.getHeader());
+        outputter.write("\n");
+
+        //  tiles
+        outputter.write("[Tiles]\n");
+        for (FomapTile tile : fomap.getTiles()) {
+            outputter.write(tile.toString() + "\n");
+        }
+        outputter.write("\n");
+
+        //  objects
+        outputter.write("[Objects]\n");
+        for (FomapObject object : fomap.getObjects()) {
+            outputter.write(object.toString());
+            outputter.write("\n");
+        }
+        outputter.write("\n");
+
+        logger.close();
+        outputter.close();
+    }
+
     public Fomap parseFromFile(String fileName, String logFileName) throws IOException {
         Fomap result = new Fomap();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -79,15 +118,40 @@ public class FomapParser {
                         } else if ("Time".equalsIgnoreCase(keyValue[0])) {
                             result.setTime(Integer.parseInt(keyValue[1]));
                         } else if ("DayTime".equalsIgnoreCase(keyValue[0])) {
-                            result.setDayTime(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            if (keyValue.length == 5) {
+                                String value = String.format("%-4s %-4s %-4s %-4s", keyValue[1], keyValue[2], keyValue[3], keyValue[4]);
+                                result.setDayTime(value);
+                            } else {
+                                result.setDayTime(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            }
                         } else if ("DayColor0".equalsIgnoreCase(keyValue[0])) {
-                            result.setDayColor0(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            if (keyValue.length == 4) {
+                                String value = String.format("%-3s %-3s %-3s", keyValue[1], keyValue[2], keyValue[3]);
+                                result.setDayColor0(value);
+                            } else {
+                                result.setDayColor0(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            }
                         } else if ("DayColor1".equalsIgnoreCase(keyValue[0])) {
-                            result.setDayColor1(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            if (keyValue.length == 4) {
+                                String value = String.format("%-3s %-3s %-3s", keyValue[1], keyValue[2], keyValue[3]);
+                                result.setDayColor1(value);
+                            } else {
+                                result.setDayColor1(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            }
                         } else if ("DayColor2".equalsIgnoreCase(keyValue[0])) {
-                            result.setDayColor2(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            if (keyValue.length == 4) {
+                                String value = String.format("%-3s %-3s %-3s", keyValue[1], keyValue[2], keyValue[3]);
+                                result.setDayColor2(value);
+                            } else {
+                                result.setDayColor2(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            }
                         } else if ("DayColor3".equalsIgnoreCase(keyValue[0])) {
-                            result.setDayColor3(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            if (keyValue.length == 4) {
+                                String value = String.format("%-3s %-3s %-3s", keyValue[1], keyValue[2], keyValue[3]);
+                                result.setDayColor3(value);
+                            } else {
+                                result.setDayColor3(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
+                            }
                         } else {
                             if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
                                 String message = String.format("[Warning] Line %d: Unknown field ('%s') found.", lineIndex, line);
@@ -132,6 +196,26 @@ public class FomapParser {
                             tile.setHexX(Integer.parseInt(keyValue[1]));
                             tile.setHexY(Integer.parseInt(keyValue[2]));
                             tile.setFile(keyValue[3]);
+                            result.addTile(tile);
+                            if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                                logger.write(tile.toString() + "\n");
+                                System.out.print(tile + "\n");
+                            }
+                        } else {
+                            if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                                String message = String.format("[Warning] Line %d: Missing parameters for '%s': (%s).\n", lineIndex, "tile", line);
+                                logger.write(message);
+                                System.out.print(message);
+                            }
+                        }
+                    } else if ("tile_l".equalsIgnoreCase(keyValue[0]) || "roof_l".equalsIgnoreCase(keyValue[0])) {
+                        if (keyValue.length >= 5) {
+                            FomapTile tile = new FomapTile();
+                            tile.setType(keyValue[0]);
+                            tile.setHexX(Integer.parseInt(keyValue[1]));
+                            tile.setHexY(Integer.parseInt(keyValue[2]));
+                            tile.setUnknownParam1(Integer.parseInt(keyValue[3]));
+                            tile.setFile(keyValue[4]);
                             result.addTile(tile);
                             if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
                                 logger.write(tile.toString() + "\n");

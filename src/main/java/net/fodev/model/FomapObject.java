@@ -74,11 +74,12 @@ public class FomapObject {
         if (mapY != null) result += String.format("%-20s %d\n", "MapY", mapY);
         if (dir != null) result += String.format("%-20s %d\n", "Dir", dir);
         if (uid != null) result += String.format("%-20s %d\n", "UID", uid);
-        if (scriptName != null) result += String.format("%-20s %s\n", "ScriptName", scriptName);
-        if (funcName != null) result += String.format("%-20s %s\n", "FuncName", funcName);
+        if (containerUID != null) result += String.format("%-20s %d\n", "ContainerUID", containerUID);
         if (lightColor != null) result += String.format("%-20s %d\n", "LightColor", lightColor);
         if (lightDistance != null) result += String.format("%-20s %d\n", "LightDistance", lightDistance);
         if (lightIntensity != null) result += String.format("%-20s %d\n", "LightIntensity", lightIntensity);
+        if (scriptName != null) result += String.format("%-20s %s\n", "ScriptName", scriptName);
+        if (funcName != null) result += String.format("%-20s %s\n", "FuncName", funcName);
         if (critterCond != null) result += String.format("%-20s %d\n", "Critter_Cond", critterCond);
         if (critterAnim1 != null) result += String.format("%-20s %d\n", "Critter_Anim1", critterAnim1);
         if (critterAnim2 != null) result += String.format("%-20s %d\n", "Critter_Anim2", critterAnim2);
@@ -105,7 +106,9 @@ public class FomapObject {
         if (critterParamIndex10 != null) result += String.format("%-20s %s\n", "Critter_ParamIndex10", critterParamIndex10);
         if (critterParamValue10 != null) result += String.format("%-20s %d\n", "Critter_ParamValue10", critterParamValue10);
 
-        if (containerUID != null) result += String.format("%-20s %d\n", "ContainerUID", containerUID);
+        if (offsetX != null) result += String.format("%-20s %d\n", "OffsetX", offsetX);
+        if (offsetY != null) result += String.format("%-20s %d\n", "OffsetY", offsetY);
+
         if (itemLockerDoorId != null) result += String.format("%-20s %d\n", "Item_LockerDoorId", itemLockerDoorId);
         if (itemLockerComplexity != null) result += String.format("%-20s %d\n", "Item_LockerComplexity", itemLockerComplexity);
         if (itemLockerCondition != null) result += String.format("%-20s %d\n", "Item_LockerCondition", itemLockerCondition);
@@ -125,8 +128,6 @@ public class FomapObject {
         if (sceneryParamsCount != null) result += String.format("%-20s %d\n", "Scenery_ParamsCount", sceneryParamsCount);
         if (sceneryParam0 != null) result += String.format("%-20s %d\n", "Scenery_Param0", sceneryParam0);
 
-        if (offsetX != null) result += String.format("%-20s %d\n", "OffsetX", offsetX);
-        if (offsetY != null) result += String.format("%-20s %d\n", "OffsetY", offsetY);
 
         if (animStayBegin != null) result += String.format("%-20s %d\n", "AnimStayBegin", animStayBegin);
         if (animStayEnd != null) result += String.format("%-20s %d\n", "AnimStayEnd", animStayEnd);
