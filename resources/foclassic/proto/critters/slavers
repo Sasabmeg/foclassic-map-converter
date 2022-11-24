@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=217
 ST_STRENGTH=5
 ST_PERCEPTION=6
@@ -22,7 +22,7 @@ SK_UNARMED=120
 SK_THROWING=28
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=218
 ST_STRENGTH=5
 ST_PERCEPTION=7
@@ -47,7 +47,7 @@ SK_UNARMED=130
 SK_THROWING=32
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=224
 ST_STRENGTH=6
 ST_PERCEPTION=7
@@ -72,7 +72,7 @@ SK_UNARMED=110
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=225
 ST_STRENGTH=6
 ST_PERCEPTION=6
@@ -99,7 +99,7 @@ SK_UNARMED=140
 SK_THROWING=140
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=140
 ST_STRENGTH=7
 ST_PERCEPTION=4
@@ -135,7 +135,7 @@ SK_SMALL_GUNS=180
 SK_UNARMED=130
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=141
 ST_STRENGTH=6
 ST_PERCEPTION=7

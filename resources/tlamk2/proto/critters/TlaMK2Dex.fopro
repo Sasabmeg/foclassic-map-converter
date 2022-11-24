@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=800
 ST_BASE_CRTYPE=13
 ST_AI_ID=1
@@ -22,7 +22,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=801
 ST_BASE_CRTYPE=6
 ST_AI_ID=1
@@ -46,7 +46,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=802
 ST_BASE_CRTYPE=133
 ST_AI_ID=1
@@ -70,7 +70,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=803
 ST_BASE_CRTYPE=132
 ST_AI_ID=1
@@ -94,7 +94,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=804
 ST_BASE_CRTYPE=135
 ST_AI_ID=1
@@ -129,7 +129,7 @@ PE_BETTER_CRITICALS=1
 PE_MORE_CRITICALS=2
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=805
 ST_BASE_CRTYPE=137
 ST_AI_ID=1
@@ -164,7 +164,7 @@ PE_BETTER_CRITICALS=1
 PE_MORE_CRITICALS=2
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=806
 ST_BASE_CRTYPE=136
 ST_AI_ID=1
@@ -199,7 +199,7 @@ PE_BETTER_CRITICALS=1
 PE_MORE_CRITICALS=2
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=807
 ST_BASE_CRTYPE=14
 ST_AI_ID=1
@@ -223,7 +223,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=808
 ST_BASE_CRTYPE=7
 ST_AI_ID=1
@@ -247,7 +247,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=809
 ST_BASE_CRTYPE=112
 ST_AI_ID=1
@@ -271,7 +271,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=810
 ST_BASE_CRTYPE=111
 ST_AI_ID=1
@@ -295,7 +295,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]\\паладин в па
+[Critter itemProto]\\паладин в па
 Pid=811
 ST_BASE_CRTYPE=1
 ST_AI_ID=1
@@ -319,7 +319,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]\\писарь
+[Critter itemProto]\\писарь
 Pid=812
 ST_BASE_CRTYPE=56
 ST_AI_ID=1
@@ -343,7 +343,7 @@ ST_KILL_EXPERIENCE=60
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]\\паладин военочальник в па
+[Critter itemProto]\\паладин военочальник в па
 Pid=813
 ST_BASE_CRTYPE=30
 ST_AI_ID=124
@@ -382,7 +382,7 @@ ST_KILL_EXPERIENCE=2900
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]\\CтражМК2
+[Critter itemProto]\\CтражМК2
 Pid=814
 ST_BASE_CRTYPE=159
 ST_AI_ID=1
@@ -412,7 +412,7 @@ ST_KILL_EXPERIENCE=480
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]\\Эдди тупой заключенный
+[Critter itemProto]\\Эдди тупой заключенный
 Pid=815
 ST_BASE_CRTYPE=91
 ST_AI_ID=1
@@ -430,7 +430,7 @@ ST_KILL_EXPERIENCE=200
 ST_DAMAGE_TYPE=1
 MODE_NO_BARTER=1
 
-[Critter proto]\\Геркулес
+[Critter itemProto]\\Геркулес
 Pid=816
 ST_BASE_CRTYPE=49
 ST_AI_ID=1

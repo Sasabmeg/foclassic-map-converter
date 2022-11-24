@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=56
 ST_STRENGTH=6
 ST_PERCEPTION=5
@@ -21,7 +21,7 @@ SK_UNARMED=150
 SK_SPEECH=10
 SK_BARTER=30
 
-[Critter proto]
+[Critter itemProto]
 Pid=57
 ST_STRENGTH=6
 ST_PERCEPTION=5
@@ -46,7 +46,7 @@ SK_UNARMED=130
 SK_SPEECH=13
 SK_BARTER=31
 
-[Critter proto]
+[Critter itemProto]
 Pid=58
 ST_STRENGTH=5
 ST_PERCEPTION=6
@@ -69,7 +69,7 @@ SK_UNARMED=130
 SK_SPEECH=38
 SK_BARTER=56
 
-[Critter proto]
+[Critter itemProto]
 Pid=59
 ST_STRENGTH=5
 ST_PERCEPTION=6
@@ -94,7 +94,7 @@ SK_UNARMED=100
 SK_SPEECH=41
 SK_BARTER=57
 
-[Critter proto]
+[Critter itemProto]
 Pid=60
 ST_STRENGTH=4
 ST_PERCEPTION=7
@@ -117,7 +117,7 @@ SK_UNARMED=130
 SK_SPEECH=51
 SK_BARTER=87
 
-[Critter proto]
+[Critter itemProto]
 Pid=61
 ST_STRENGTH=4
 ST_PERCEPTION=7
@@ -143,7 +143,7 @@ SK_UNARMED=140
 SK_SPEECH=54
 SK_BARTER=88
 
-[Critter proto]
+[Critter itemProto]
 Pid=142
 ST_STRENGTH=4
 ST_PERCEPTION=8
@@ -175,7 +175,7 @@ SK_ENERGY_WEAPONS=160
 SK_UNARMED=150
 SK_BARTER=107
 
-[Critter proto]
+[Critter itemProto]
 Pid=143
 ST_STRENGTH=4
 ST_PERCEPTION=8
@@ -209,7 +209,7 @@ SK_ENERGY_WEAPONS=180
 SK_UNARMED=150
 SK_BARTER=108
 
-[Critter proto]
+[Critter itemProto]
 Pid=300
 ST_STRENGTH=7
 ST_PERCEPTION=9
@@ -252,7 +252,7 @@ SK_THROWING=92
 SK_SPEECH=45
 SK_BARTER=112
 
-[Critter proto]
+[Critter itemProto]
 Pid=308
 ST_STRENGTH=4
 ST_PERCEPTION=8

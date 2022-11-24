@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=101
 ST_STRENGTH=6
 ST_PERCEPTION=4
@@ -24,7 +24,7 @@ SK_REPAIR=30
 SK_SPEECH=15
 SK_BARTER=38
 
-[Critter proto]
+[Critter itemProto]
 Pid=102
 ST_STRENGTH=5
 ST_PERCEPTION=4
@@ -51,7 +51,7 @@ SK_REPAIR=37
 SK_SPEECH=10
 SK_BARTER=19
 
-[Critter proto]
+[Critter itemProto]
 Pid=103
 ST_STRENGTH=6
 ST_PERCEPTION=5
@@ -83,7 +83,7 @@ SK_BARTER=4
 SK_GAMBLING=10
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=159
 ST_STRENGTH=6
 ST_PERCEPTION=5
@@ -108,7 +108,7 @@ SK_UNARMED=130
 SK_THROWING=130
 SK_FIRST_AID=15
 
-[Critter proto]
+[Critter itemProto]
 Pid=173
 ST_STRENGTH=6
 ST_PERCEPTION=4
@@ -135,7 +135,7 @@ SK_REPAIR=30
 SK_SPEECH=15
 SK_BARTER=38
 
-[Critter proto]
+[Critter itemProto]
 Pid=178
 ST_STRENGTH=5
 ST_PERCEPTION=4
@@ -162,7 +162,7 @@ SK_REPAIR=37
 SK_SPEECH=10
 SK_BARTER=19
 
-[Critter proto]
+[Critter itemProto]
 Pid=179
 ST_STRENGTH=6
 ST_PERCEPTION=5
@@ -185,7 +185,7 @@ SK_UNARMED=130
 SK_THROWING=150
 SK_FIRST_AID=15
 
-[Critter proto]
+[Critter itemProto]
 Pid=226
 ST_STRENGTH=5
 ST_PERCEPTION=5
@@ -215,7 +215,7 @@ SK_UNARMED=120
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=227
 ST_STRENGTH=5
 ST_PERCEPTION=5
@@ -245,7 +245,7 @@ SK_UNARMED=120
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=228
 ST_STRENGTH=6
 ST_PERCEPTION=7
@@ -275,7 +275,7 @@ SK_UNARMED=130
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=229
 ST_STRENGTH=5
 ST_PERCEPTION=6
@@ -305,7 +305,7 @@ SK_UNARMED=130
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=258
 ST_STRENGTH=6
 ST_PERCEPTION=5
@@ -331,7 +331,7 @@ PE_SHARPSHOOTER=1
 PE_BETTER_CRITICALS=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=507
 ST_STRENGTH=9
 ST_PERCEPTION=4

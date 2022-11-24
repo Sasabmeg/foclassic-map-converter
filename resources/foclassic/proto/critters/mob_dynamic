@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=1882
 ST_BASE_CRTYPE=197
 ST_OVERRIDE_CRTYPE=197
@@ -13,7 +13,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1883
 ST_BASE_CRTYPE=186
 ST_OVERRIDE_CRTYPE=186
@@ -30,7 +30,7 @@ ST_GENDER=2
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1884
 ST_BASE_CRTYPE=182
 ST_OVERRIDE_CRTYPE=182
@@ -47,7 +47,7 @@ ST_GENDER=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1885
 ST_BASE_CRTYPE=181
 ST_OVERRIDE_CRTYPE=181
@@ -62,7 +62,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1886
 ST_BASE_CRTYPE=180
 ST_OVERRIDE_CRTYPE=180
@@ -77,7 +77,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1887
 ST_BASE_CRTYPE=179
 ST_OVERRIDE_CRTYPE=179
@@ -94,7 +94,7 @@ ST_GENDER=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1888
 ST_BASE_CRTYPE=178
 ST_OVERRIDE_CRTYPE=178
@@ -111,7 +111,7 @@ ST_GENDER=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1889
 ST_BASE_CRTYPE=177
 ST_OVERRIDE_CRTYPE=177
@@ -126,7 +126,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1890
 ST_BASE_CRTYPE=9
 ST_OVERRIDE_CRTYPE=9
@@ -141,7 +141,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1891
 ST_BASE_CRTYPE=176
 ST_OVERRIDE_CRTYPE=176
@@ -158,7 +158,7 @@ ST_GENDER=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1892
 ST_BASE_CRTYPE=175
 ST_OVERRIDE_CRTYPE=175
@@ -173,7 +173,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1893
 ST_BASE_CRTYPE=174
 ST_OVERRIDE_CRTYPE=174
@@ -188,7 +188,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1894
 ST_BASE_CRTYPE=172
 ST_OVERRIDE_CRTYPE=172
@@ -203,7 +203,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1895
 ST_BASE_CRTYPE=173
 ST_OVERRIDE_CRTYPE=173
@@ -220,7 +220,7 @@ ST_GENDER=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1896
 ST_BASE_CRTYPE=184
 ST_OVERRIDE_CRTYPE=184
@@ -237,7 +237,7 @@ ST_GENDER=2
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1897
 ST_BASE_CRTYPE=107
 ST_OVERRIDE_CRTYPE=107
@@ -252,7 +252,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1898
 ST_BASE_CRTYPE=106
 ST_OVERRIDE_CRTYPE=106
@@ -267,7 +267,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1899
 ST_BASE_CRTYPE=11
 ST_OVERRIDE_CRTYPE=11
@@ -282,7 +282,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1900
 ST_BASE_CRTYPE=4
 ST_OVERRIDE_CRTYPE=4
@@ -297,7 +297,7 @@ ST_DAMAGE_TYPE=1
 ST_AGE=25
 ST_AI_ID=13
 
-[Critter proto]
+[Critter itemProto]
 Pid=1901
 ST_BASE_CRTYPE=198
 ST_OVERRIDE_CRTYPE=198

@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=5
 ST_STRENGTH=5
 ST_PERCEPTION=2
@@ -29,7 +29,7 @@ SK_UNARMED=150
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=6
 ST_STRENGTH=7
 ST_PERCEPTION=2
@@ -63,7 +63,7 @@ SK_UNARMED=140
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=355
 ST_STRENGTH=5
 ST_PERCEPTION=2
@@ -96,7 +96,7 @@ SK_UNARMED=150
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=356
 ST_STRENGTH=8
 ST_PERCEPTION=3

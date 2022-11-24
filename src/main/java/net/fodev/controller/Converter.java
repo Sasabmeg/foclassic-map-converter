@@ -1,5 +1,9 @@
 package net.fodev.controller;
 
+import net.fodev.model.Fomap;
+import net.fodev.model.FomapObject;
+import net.fodev.model.FomapTile;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +20,13 @@ public class Converter {
     }
 
     private int logLevel = 0;
+    private Map<Integer, Integer> genericProtoMapping;
+    private Map<Integer, Integer> critterProtoMapping;
+
+    public Converter() {
+        genericProtoMapping = new HashMap<>();
+        critterProtoMapping = new HashMap<>();
+    }
 
     public void setLogLevel(String logLevel) {
         if ("warning".equalsIgnoreCase(logLevel) || "warn".equalsIgnoreCase(logLevel)) {
@@ -27,13 +38,24 @@ public class Converter {
         }
     }
 
-    Map<Integer, Integer> map;
-
-    public Converter() {
-        map = new HashMap<>();
+    public Map<Integer, Integer> getGenericProtoMapping() {
+        return genericProtoMapping;
     }
 
-    public void mapFromFile(String fileName, String logFileName) throws IOException {
+    public void setGenericProtoMapping(Map<Integer, Integer> genericProtoMapping) {
+        this.genericProtoMapping = genericProtoMapping;
+    }
+
+    public Map<Integer, Integer> getCritterProtoMapping() {
+        return critterProtoMapping;
+    }
+
+    public void setCritterProtoMapping(Map<Integer, Integer> critterProtoMapping) {
+        this.critterProtoMapping = critterProtoMapping;
+    }
+
+    public Map<Integer, Integer> mapFromFile(String fileName, String logFileName) throws IOException {
+        Map<Integer, Integer> map = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         FileWriter logger = new FileWriter(logFileName, true);
         String line;
@@ -66,11 +88,11 @@ public class Converter {
         }
         System.out.println("Done.");
         logger.close();
-
+        return map;
     }
 
     public void printMap() {
-        map.entrySet().stream().forEach((kv) -> {
+        genericProtoMapping.entrySet().stream().forEach((kv) -> {
             System.out.println(String.format("(%d, %d)", kv.getKey(), kv.getValue()));
         });
     }
@@ -97,7 +119,7 @@ public class Converter {
                 if (keyValue.length > 1) {
                     try {
                         Integer value = Integer.parseInt(keyValue[1]);
-                        Integer converted = map.get(value);
+                        Integer converted = genericProtoMapping.get(value);
                         if (converted != null) {
                             outputter.write(String.format("%s%s%s\n", keyValue[0], spacing, converted));
                             if (logLevel <= Converter.LogLevel.info.ordinal()) {
@@ -158,5 +180,78 @@ public class Converter {
         System.out.println("Done.");
         outputter.close();
         logger.close();
+    }
+
+    public void convertFomap(Fomap fomap, String outputFile, String logFile, String handleMissingProto, Integer missingProtoReplaceValue) throws IOException {
+        FileWriter outputter = new FileWriter(outputFile);
+        FileWriter logger = new FileWriter(logFile, true);
+        String msg = String.format("Converting fomap to '%s', handling missing proto id's as: '%s' with default value: '%d' if applicable.\n",
+                outputFile, handleMissingProto, missingProtoReplaceValue);
+        logger.write(msg);
+        System.out.print(msg);
+
+        //  header
+        outputter.write(fomap.getHeader() + "\n");
+        if (genericProtoMapping.size() == 0) {
+            if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
+                String message = "[Warning] Generic Proto Map contains no elements to help conversion.\n";
+                logger.write(message);
+                System.out.print(message);
+            }
+        }
+
+        if (critterProtoMapping.size() == 0) {
+            if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
+                String message = "[Warning] Critter Proto Map contains no elements to help conversion.\n";
+                logger.write(message);
+                System.out.print(message);
+            }
+        }
+
+        //  tiles
+        outputter.write("[Tiles]\n");
+        for (FomapTile tile : fomap.getTiles()) {
+            outputter.write(tile.toString() + "\n");
+        }
+        outputter.write("\n");
+
+        //  objects
+        outputter.write("[Objects]\n");
+        for (FomapObject object : fomap.getObjects()) {
+            Integer key = object.getProtoId();
+            if (object.getType() != 0) {
+                if (genericProtoMapping.containsKey(key)) {
+                    object.setProtoId(genericProtoMapping.get(key));
+                    outputter.write(object.toString() + "\n");
+                } else {
+                    if ("remove".equalsIgnoreCase(handleMissingProto)) {
+                        //outputter.write(object.toString() + "\n");
+                        //  do nothing
+                    } else if ("replace".equalsIgnoreCase(handleMissingProto)) {
+                        //  todo
+                    } else {
+                        outputter.write(object.toString() + "\n");
+                    }
+                }
+            } else {
+                if (critterProtoMapping.containsKey(key)) {
+                    object.setProtoId(critterProtoMapping.get(key));
+                    outputter.write(object.toString() + "\n");
+                } else {
+                    if ("remove".equalsIgnoreCase(handleMissingProto)) {
+                        //outputter.write(object.toString() + "\n");
+                        //  do nothing
+                    } else if ("replace".equalsIgnoreCase(handleMissingProto)) {
+                        //  todo
+                    } else {
+                        outputter.write(object.toString() + "\n");
+                    }
+                }
+            }
+        }
+        outputter.write("\n");
+
+        logger.close();
+        outputter.close();
     }
 }

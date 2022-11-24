@@ -3,7 +3,7 @@ package net.fodev.model;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Proto implements Comparable<Proto> {
+public class ItemProto implements Comparable<ItemProto> {
 
     //  these are important for comparison and reference
     @Getter @Setter private Integer protoId;
@@ -183,18 +183,18 @@ public class Proto implements Comparable<Proto> {
     @Getter @Setter private Integer weaponUnarmedPriority;
     @Getter @Setter private String weaponUnarmedTree;
 
-    public Proto() {
+    public ItemProto() {
         protoId = 0;
         type = "N/A";
         picMap = "N/A";
         picInv = "N/A";
     }
 
-    public boolean sameMapPic(Proto other) {
+    public boolean sameMapPic(ItemProto other) {
         return picMap.equalsIgnoreCase(other.getPicMap());
     }
 
-    public boolean sameInventoryPic(Proto other) {
+    public boolean sameInventoryPic(ItemProto other) {
         return picInv.equalsIgnoreCase(other.getPicInv());
     }
 
@@ -216,7 +216,7 @@ public class Proto implements Comparable<Proto> {
     }
 
     @Override
-    public int compareTo(Proto o) {
+    public int compareTo(ItemProto o) {
         return this.getProtoId() - o.getProtoId();
     }
 }

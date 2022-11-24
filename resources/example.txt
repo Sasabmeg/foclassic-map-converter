@@ -15,14 +15,21 @@ java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar 
 java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_tlamk2_ignored.fomap -lp out -ll warning
 java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_tlamk2_replaced.fomap -mph replace -rv 106 -lp out -ll warning 
 
-##	Manual mapping file should be made, to complete missing information if possible
-TODO
-
-##	Switch to use to change missing proto id's, default is unchanged, but one can change all values to same value easily recognizeable in mapper
-TODO
 
 
+##	Example - convert maps from TLAmk2 to FOClassic
 
+##	generate items (generic/walls/objects/etc) proto mapping file
+java -jar foclassic-map-converter -gipm out/items_verbose.mapping -pms resources/tlamk2/proto/items/animals.fopro resources/tlamk2/proto/items/ammo.fopro resources/tlamk2/proto/items/armor.fopro resources/tlamk2/proto/items/book.fopro resources/tlamk2/proto/items/car.fopro resources/tlamk2/proto/items/container.fopro resources/tlamk2/proto/items/door.fopro resources/tlamk2/proto/items/drug.fopro resources/tlamk2/proto/items/generic.fopro resources/tlamk2/proto/items/grid.fopro resources/tlamk2/proto/items/key.fopro resources/tlamk2/proto/items/misc.fopro resources/tlamk2/proto/items/wall.fopro resources/tlamk2/proto/items/weapon.fopro -pmt resources/foclassic/proto/items/ammo.fopro resources/foclassic/proto/items/armor.fopro resources/foclassic/proto/items/blueprint.fopro resources/foclassic/proto/items/car.fopro resources/foclassic/proto/items/container.fopro resources/foclassic/proto/items/movable_container.fopro resources/foclassic/proto/items/door.fopro resources/foclassic/proto/items/drug.fopro resources/foclassic/proto/items/dynamic.fopro resources/foclassic/proto/items/generic.fopro resources/foclassic/proto/items/grid.fopro resources/foclassic/proto/items/helmet.fopro resources/foclassic/proto/items/key.fopro resources/foclassic/proto/items/map_object.fopro resources/foclassic/proto/items/misc.fopro resources/foclassic/proto/items/smo.fopro resources/foclassic/proto/items/spot.fopro resources/foclassic/proto/items/transfer.fopro resources/foclassic/proto/items/trigger.fopro resources/foclassic/proto/items/wall.fopro resources/foclassic/proto/items/weapon.fopro -lp out -ll warning 
 
+##	generate critters proto mapping file
+java -jar foclassic-map-converter -gcpm out/critters.mapping -pms resources/tlamk2/proto/critters/fallout2.fopro resources/tlamk2/proto/critters/tla.fopro resources/tlamk2/proto/critters/tlamk2.fopro resources/tlamk2/proto/critters/TlaMK2Dex.fopro -pmt resources/foclassic/proto/critters/aliens resources/foclassic/proto/critters/brahmins resources/foclassic/proto/critters/deathclaws resources/foclassic/proto/critters/dogs resources/foclassic/proto/critters/geckos resources/foclassic/proto/critters/ghouls resources/foclassic/proto/critters/insects resources/foclassic/proto/critters/mutants resources/foclassic/proto/critters/plants resources/foclassic/proto/critters/radscorpions resources/foclassic/proto/critters/rats resources/foclassic/proto/critters/robots resources/foclassic/proto/critters/bandits resources/foclassic/proto/critters/citizens resources/foclassic/proto/critters/encounter resources/foclassic/proto/critters/guards resources/foclassic/proto/critters/merchants resources/foclassic/proto/critters/slavers resources/foclassic/proto/critters/slaves resources/foclassic/proto/critters/tribals resources/foclassic/proto/critters/vips resources/foclassic/proto/critters/2238 resources/foclassic/proto/critters/bounty resources/foclassic/proto/critters/companions resources/foclassic/proto/critters/strangers resources/foclassic/proto/critters/invalid resources/foclassic/proto/critters/dungeons resources/foclassic/proto/critters/crv_encounter resources/foclassic/proto/critters/docan_critters resources/foclassic/proto/critters/crv_guards resources/foclassic/proto/critters/quests resources/foclassic/proto/critters/mob_dynamic -lp out -ll warning 
 
-java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_converted.fomap -lp out -ll warning
+##	convert map using the above two mapping files
+java -jar foclassic-map-converter -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_converted.fomap -ipm out/items_verbose.mapping -cpm out/critters.mapping -mph remove -lp out -ll warning 
+
+##	All in one bat
+
+convert.bat resources\tlamk2\maps\barter_ground.fomap resources\tlamk2\proto resources\foclassic\proto out
+
+convert_all.bat resources\tlamk2\maps resources\tlamk2\proto resources\foclassic\proto out

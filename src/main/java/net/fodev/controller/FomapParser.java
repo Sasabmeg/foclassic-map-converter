@@ -27,6 +27,16 @@ public class FomapParser {
         this.logLevel = logLevel;
     }
 
+    public void setLogLevel(String logLevel) {
+        if ("warning".equalsIgnoreCase(logLevel) || "warn".equalsIgnoreCase(logLevel)) {
+            this.logLevel = 1;
+        } else if ("error".equalsIgnoreCase(logLevel) || "err".equalsIgnoreCase(logLevel)) {
+            this.logLevel = 2;
+        } else {
+            this.logLevel = 0;
+        }
+    }
+
     public void fomapToFile(Fomap fomap, String fileName, String logFileName) throws IOException {
         FileWriter outputter = new FileWriter(fileName, false);
         FileWriter logger = new FileWriter(logFileName, true);
@@ -81,7 +91,7 @@ public class FomapParser {
                 //  [Header]
                 if (line.length() > 2 && line.charAt(0) == '[') {
                     headerFound = true;
-                    if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                    if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
                         String message = String.format("Parsing header.\n");
                         logger.write(message);
                         System.out.print(message);
@@ -153,14 +163,14 @@ public class FomapParser {
                                 result.setDayColor3(Arrays.stream(keyValue).skip(1).limit(keyValue.length - 1).collect(Collectors.joining(" ")));
                             }
                         } else {
-                            if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                                 String message = String.format("[Warning] Line %d: Unknown field ('%s') found.", lineIndex, line);
                                 logger.write(message + "\n");
                                 System.out.println(message);
                             }
                         }
                     } catch (NumberFormatException e) {
-                        if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                        if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                             String message = String.format("[Warning] Line %d: %s\n", lineIndex, e);
                             logger.write(message);
                             System.out.print(message);
@@ -171,7 +181,7 @@ public class FomapParser {
         } while (line != null && line.length() > 2);
 
         //  print header to log and screen
-        if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+        if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
             logger.write(result.getHeader() + "\n");
             System.out.println(result.getHeader());
         }
@@ -185,7 +195,7 @@ public class FomapParser {
                 String[] keyValue = line.split("\\s+");
                 try {
                     if ("[Tiles]".equalsIgnoreCase(keyValue[0])) {
-                        if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                        if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
                             logger.write("Parsing tiles.\n");
                             System.out.print("Parsing tiles.\n");
                         }
@@ -197,12 +207,12 @@ public class FomapParser {
                             tile.setHexY(Integer.parseInt(keyValue[2]));
                             tile.setFile(keyValue[3]);
                             result.addTile(tile);
-                            if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
                                 logger.write(tile.toString() + "\n");
                                 System.out.print(tile + "\n");
                             }
                         } else {
-                            if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                                 String message = String.format("[Warning] Line %d: Missing parameters for '%s': (%s).\n", lineIndex, "tile", line);
                                 logger.write(message);
                                 System.out.print(message);
@@ -217,12 +227,12 @@ public class FomapParser {
                             tile.setUnknownParam1(Integer.parseInt(keyValue[3]));
                             tile.setFile(keyValue[4]);
                             result.addTile(tile);
-                            if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
                                 logger.write(tile.toString() + "\n");
                                 System.out.print(tile + "\n");
                             }
                         } else {
-                            if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                                 String message = String.format("[Warning] Line %d: Missing parameters for '%s': (%s).\n", lineIndex, "tile", line);
                                 logger.write(message);
                                 System.out.print(message);
@@ -236,12 +246,12 @@ public class FomapParser {
                             roof.setHexY(Integer.parseInt(keyValue[2]));
                             roof.setFile(keyValue[3]);
                             result.addTile(roof);
-                            if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
                                 logger.write(roof.toString() + "\n");
                                 System.out.print(roof + "\n");
                             }
                         } else {
-                            if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                            if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                                 String message = String.format("[Warning] Line %d: Missing parameters for '%s': (%s).\n", lineIndex, "roof", line);
                                 logger.write(message);
                                 System.out.print(message);
@@ -249,7 +259,7 @@ public class FomapParser {
                         }
                     }
                 } catch (NumberFormatException e) {
-                    if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                    if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                         String message = String.format("[Warning] Line %d: %s\n", lineIndex, e);
                         logger.write(message);
                         System.out.print(message);
@@ -393,7 +403,7 @@ public class FomapParser {
                                     } else if ("AnimStayEnd".equalsIgnoreCase(split[0])) {
                                         object.setAnimStayEnd(Integer.parseInt(split[1]));
                                     } else {
-                                        if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                                        if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                                             String message = String.format("[Warning] Line %d: Unknown field (%s) found. Ignoring any occurrences of '%s' in %s.", lineIndex, line, split[0], fileName);
                                             logger.write(message + "\n");
                                             System.out.println(message);
@@ -403,19 +413,19 @@ public class FomapParser {
                             }
                         } while (line != null && line.length() > 2);
                         result.addObject(object);
-                        if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+                        if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
                             logger.write(object.toString() + "\n");
                             System.out.println(object);
                         }
                     } else {
-                        if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                        if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                             String message = String.format("[Warning] Line %d: Unknown field ('%s') found.", lineIndex, line);
                             logger.write(message + "\n");
                             System.out.println(message);
                         }
                     }
                 } catch (NumberFormatException e) {
-                    if (logLevel <= ProtoParser.LogLevel.warn.ordinal()) {
+                    if (logLevel <= ItemProtoParser.LogLevel.warn.ordinal()) {
                         String message = String.format("[Warning] Line %d: %s\n", lineIndex, e);
                         logger.write(message);
                         System.out.print(message);
@@ -424,7 +434,7 @@ public class FomapParser {
             }
         } while (line != null);
 
-        if (logLevel <= ProtoParser.LogLevel.info.ordinal()) {
+        if (logLevel <= ItemProtoParser.LogLevel.info.ordinal()) {
             logger.write("Done.\n");
             System.out.println("Done.");
         }

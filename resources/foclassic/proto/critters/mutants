@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=119
 ST_STRENGTH=9
 ST_PERCEPTION=9
@@ -38,7 +38,7 @@ PE_STONEWALL=1
 PE_IRON_LIMBS=1
 PE_MAN_OF_STEEL=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=120
 ST_STRENGTH=10
 ST_PERCEPTION=9
@@ -78,7 +78,7 @@ PE_STONEWALL=1
 PE_IRON_LIMBS=1
 PE_MAN_OF_STEEL=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=246
 ST_STRENGTH=8
 ST_PERCEPTION=9
@@ -113,7 +113,7 @@ MODE_NO_BARTER=1
 MODE_NO_DROP=1
 MODE_RANGE_HTH=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=247
 ST_STRENGTH=9
 ST_PERCEPTION=10
@@ -150,7 +150,7 @@ MODE_NO_BARTER=1
 MODE_NO_DROP=1
 MODE_RANGE_HTH=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=248
 ST_STRENGTH=7
 ST_PERCEPTION=8
@@ -188,7 +188,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=249
 ST_STRENGTH=8
 ST_PERCEPTION=9
@@ -226,7 +226,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=256
 ST_STRENGTH=10
 ST_PERCEPTION=9
@@ -263,7 +263,7 @@ PE_IRON_LIMBS=1
 PE_MAN_OF_STEEL=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=257
 ST_STRENGTH=10
 ST_PERCEPTION=9

@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=10
 ST_STRENGTH=8
 ST_PERCEPTION=3
@@ -27,7 +27,7 @@ ST_BASE_CRTYPE=15
 ST_OVERRIDE_CRTYPE=15
 SK_UNARMED=140
 
-[Critter proto]
+[Critter itemProto]
 Pid=114
 ST_STRENGTH=4
 ST_PERCEPTION=3
@@ -55,7 +55,7 @@ ST_BASE_CRTYPE=15
 ST_OVERRIDE_CRTYPE=15
 SK_UNARMED=120
 
-[Critter proto]
+[Critter itemProto]
 Pid=219
 ST_STRENGTH=8
 ST_PERCEPTION=5
@@ -89,7 +89,7 @@ MODE_NO_BARTER=1
 MODE_NO_DROP=1
 MODE_NO_KNOCK=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=404
 ST_STRENGTH=9
 ST_PERCEPTION=5

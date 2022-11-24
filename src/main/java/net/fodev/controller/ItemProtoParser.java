@@ -6,7 +6,7 @@ import net.fodev.model.ItemProtoMapping;
 import java.io.*;
 import java.util.*;
 
-public class ProtoParser {
+public class ItemProtoParser {
     public enum LogLevel {
         info,
         warn,
@@ -579,7 +579,6 @@ public class ProtoParser {
             String line = String.format("%d %d %s %s %s %s\n",
                     p.getSourceProtoId(), p.getTargetProtoId(), p.getPicMap(), p.getPicInv(), p.getSourceFile(), p.getTargetFile());
             outPutter.write(line);
-            System.out.print(line);
         }
 
         logger.write(String.format("Done.\n"));

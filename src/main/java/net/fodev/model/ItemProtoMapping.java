@@ -3,7 +3,7 @@ package net.fodev.model;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ProtoMapping implements Comparable<ProtoMapping> {
+public class ItemProtoMapping implements Comparable<ItemProtoMapping> {
 
     @Getter @Setter private Integer sourceProtoId;
     @Getter @Setter private Integer targetProtoId;
@@ -12,7 +12,7 @@ public class ProtoMapping implements Comparable<ProtoMapping> {
     @Getter @Setter private String sourceFile;
     @Getter @Setter private String targetFile;
 
-    public ProtoMapping(Integer sourceProtoId, Integer targetProtoId, String picMap, String picInv, String sourceFile, String targetFile) {
+    public ItemProtoMapping(Integer sourceProtoId, Integer targetProtoId, String picMap, String picInv, String sourceFile, String targetFile) {
         this.sourceProtoId = sourceProtoId;
         this.targetProtoId = targetProtoId;
         this.picMap = picMap;
@@ -34,7 +34,7 @@ public class ProtoMapping implements Comparable<ProtoMapping> {
     }
 
     @Override
-    public int compareTo(ProtoMapping o) {
+    public int compareTo(ItemProtoMapping o) {
         if (this.sourceProtoId - o.sourceProtoId != 0) {
             return this.sourceProtoId - o.sourceProtoId;
         } else {

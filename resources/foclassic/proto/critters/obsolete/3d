@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=506
 ST_STRENGTH=8
 ST_PERCEPTION=9
@@ -36,7 +36,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=508
 ST_STRENGTH=3
 ST_PERCEPTION=7
@@ -64,7 +64,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=509
 ST_STRENGTH=8
 ST_PERCEPTION=4
@@ -102,7 +102,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=510
 ST_STRENGTH=5
 ST_PERCEPTION=6
@@ -140,7 +140,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=511
 ST_STRENGTH=6
 ST_PERCEPTION=3
@@ -171,7 +171,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=512
 ST_STRENGTH=8
 ST_PERCEPTION=3
@@ -204,7 +204,7 @@ MODE_NO_BARTER=1
 MODE_NO_DROP=1
 MODE_NO_KNOCK=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=513
 ST_STRENGTH=7
 ST_PERCEPTION=5
@@ -233,7 +233,7 @@ MODE_DEAD_AGES=1
 MODE_RANGE_HTH=1
 MODE_NO_KNOCK=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=514
 ST_STRENGTH=3
 ST_PERCEPTION=4
@@ -258,7 +258,7 @@ MODE_NO_STEAL=1
 MODE_NO_BARTER=1
 MODE_NO_DROP=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=515
 ST_STRENGTH=5
 ST_PERCEPTION=7
@@ -287,7 +287,7 @@ MODE_DEAD_AGES=1
 MODE_RANGE_HTH=1
 MODE_NO_KNOCK=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=516
 ST_STRENGTH=4
 ST_PERCEPTION=5
@@ -316,7 +316,7 @@ MODE_DEAD_AGES=1
 MODE_RANGE_HTH=1
 MODE_NO_KNOCK=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=520
 ST_STRENGTH=7
 ST_PERCEPTION=5
@@ -345,7 +345,7 @@ MODE_DEAD_AGES=1
 MODE_RANGE_HTH=1
 MODE_NO_KNOCK=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=524
 ST_STRENGTH=8
 ST_PERCEPTION=9

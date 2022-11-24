@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=16
 ST_STRENGTH=5
 ST_PERCEPTION=2

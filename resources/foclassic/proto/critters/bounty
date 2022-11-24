@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=181
 ST_STRENGTH=6
 ST_PERCEPTION=7
@@ -24,7 +24,7 @@ SK_UNARMED=130
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=182
 ST_STRENGTH=5
 ST_PERCEPTION=6
@@ -50,7 +50,7 @@ SK_UNARMED=120
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=183
 ST_STRENGTH=7
 ST_PERCEPTION=8
@@ -81,7 +81,7 @@ SK_UNARMED=130
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=184
 ST_STRENGTH=6
 ST_PERCEPTION=6
@@ -109,7 +109,7 @@ SK_UNARMED=130
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=185
 ST_STRENGTH=6
 ST_PERCEPTION=7
@@ -139,7 +139,7 @@ SK_UNARMED=130
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=186
 ST_STRENGTH=8
 ST_PERCEPTION=9
@@ -170,7 +170,7 @@ SK_UNARMED=140
 SK_THROWING=160
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=187
 ST_STRENGTH=10
 ST_PERCEPTION=8
@@ -199,7 +199,7 @@ SK_UNARMED=150
 SK_THROWING=160
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=188
 ST_STRENGTH=8
 ST_PERCEPTION=8
@@ -229,7 +229,7 @@ SK_UNARMED=140
 SK_THROWING=160
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=189
 ST_STRENGTH=8
 ST_PERCEPTION=9
@@ -260,7 +260,7 @@ SK_UNARMED=140
 SK_THROWING=160
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=190
 ST_STRENGTH=8
 ST_PERCEPTION=8

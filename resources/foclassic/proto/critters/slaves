@@ -1,4 +1,4 @@
-[Critter proto]
+[Critter itemProto]
 Pid=17
 ST_STRENGTH=4
 ST_PERCEPTION=4
@@ -25,7 +25,7 @@ SK_LOCKPICK=5
 SK_BARTER=24
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=18
 ST_STRENGTH=5
 ST_PERCEPTION=4
@@ -50,7 +50,7 @@ SK_LOCKPICK=5
 SK_BARTER=19
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=19
 ST_STRENGTH=6
 ST_PERCEPTION=4
@@ -80,7 +80,7 @@ SK_DOCTOR=27
 SK_OUTDOORSMAN=60
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=20
 ST_STRENGTH=6
 ST_PERCEPTION=4
@@ -108,7 +108,7 @@ SK_DOCTOR=22
 SK_OUTDOORSMAN=66
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=21
 ST_STRENGTH=8
 ST_PERCEPTION=4
@@ -136,7 +136,7 @@ SK_THROWING=150
 SK_DOCTOR=2
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=22
 ST_STRENGTH=9
 ST_PERCEPTION=4
@@ -162,7 +162,7 @@ SK_THROWING=150
 SK_DOCTOR=2
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=23
 ST_STRENGTH=6
 ST_PERCEPTION=7
@@ -190,7 +190,7 @@ SK_UNARMED=140
 SK_THROWING=150
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=24
 ST_STRENGTH=6
 ST_PERCEPTION=7
@@ -216,7 +216,7 @@ SK_UNARMED=140
 SK_THROWING=130
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=25
 ST_STRENGTH=4
 ST_PERCEPTION=6
@@ -251,7 +251,7 @@ SK_GAMBLING=29
 SK_OUTDOORSMAN=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=26
 ST_STRENGTH=5
 ST_PERCEPTION=5
@@ -285,7 +285,7 @@ SK_GAMBLING=35
 SK_OUTDOORSMAN=1
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=27
 ST_STRENGTH=5
 ST_PERCEPTION=5
@@ -307,7 +307,7 @@ SK_UNARMED=130
 SK_THROWING=130
 MODE_NO_BARTER=1
 
-[Critter proto]
+[Critter itemProto]
 Pid=28
 ST_STRENGTH=5
 ST_PERCEPTION=5

@@ -1,9 +1,13 @@
 package net.fodev;
 
 import net.fodev.controller.Converter;
-import net.fodev.controller.ProtoParser;
-import net.fodev.model.Proto;
-import net.fodev.model.ProtoMapping;
+import net.fodev.controller.CritterProtoParser;
+import net.fodev.controller.FomapParser;
+import net.fodev.controller.ItemProtoParser;
+import net.fodev.model.CritterProto;
+import net.fodev.model.Fomap;
+import net.fodev.model.ItemProto;
+import net.fodev.model.ItemProtoMapping;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -14,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -25,21 +30,25 @@ public class Main {
                 .defaultHelp(true)
                 .description("Map converter between FOnline versions.");
         //  create proto id mappings file
-        argumentParser.addArgument("-p1", "--proto1")
+        argumentParser.addArgument("-ps", "--protoSource")
                 .help("Specify first proto id file for conversion. (The file you convert proto ID's from.)");
-        argumentParser.addArgument("-ps1", "--protoFiles1")
+        argumentParser.addArgument("-pms", "--protoMultipleSources")
                 .nargs("*")
                 .help("Specify multiple proto id files for conversion. (The files you convert proto ID's from.)");
-        argumentParser.addArgument("-p2", "--proto2")
+        argumentParser.addArgument("-pt", "--protoTarget")
                 .help("Specify second proto id file for conversion. (The file you convert proto ID's to.)");
-        argumentParser.addArgument("-ps2", "--protoFiles2")
+        argumentParser.addArgument("-pmt", "--protoMultipleTargets")
                 .nargs("*")
                 .help("Specify multiple proto id files for conversion. (The files you convert proto ID's to.)");
-        argumentParser.addArgument("-gmf", "--generateMappingFile")
+        argumentParser.addArgument("-gipm", "--generateItemProtoMappingFile")
+                .help("Specify ");
+        argumentParser.addArgument("-gcpm", "--generateCritterProtoMappingFile")
                 .help("Specify ");
 
         //  use proto id mappings file to convert maps between different fonline versions
-        argumentParser.addArgument("-pm", "--protoMapping")
+        argumentParser.addArgument("-ipm", "--itemProtoMapping")
+                .help("Specify proto ID mapping file to use to convert map file.");
+        argumentParser.addArgument("-cpm", "--critterProtoMapping")
                 .help("Specify proto ID mapping file to use to convert map file.");
         argumentParser.addArgument("-ms", "--mapSourceFile")
                 .help("Specify fomap file to convert.");
@@ -67,6 +76,9 @@ public class Main {
 
         String logFolder = ns.getString("logPath");
         String logLevel = ns.getString("logLevel");
+        if (logLevel == null) {
+            logFolder = "warning";
+        }
         String logParseFile = "lastParse.log";
         String logConversionFile = "lastConversion.log";
         if (logFolder != null) {
@@ -74,15 +86,20 @@ public class Main {
             logConversionFile = logFolder + "/" + logConversionFile;
         }
 
-        String mappingFileFrom = ns.getString("proto1");
-        String mappingFileTo = ns.getString("proto2");
-        List<String> mappingFilesFrom = ns.getList("protoFiles1");
-        List<String> mappingFilesTo = ns.getList("protoFiles2");
-        String generateMappingFile = ns.getString("generateMappingFile");
-        String protoMappingFile = ns.getString("protoMapping");
+        String mappingFileFrom = ns.getString("protoSource");
+        String mappingFileTo = ns.getString("protoTarget");
+        List<String> mappingFilesFrom = ns.getList("protoMultipleSources");
+        List<String> mappingFilesTo = ns.getList("protoMultipleTargets");
+        String generateItemProtoMappingFile = ns.getString("generateItemProtoMappingFile");
+        String generateCritterProtoMappingFile = ns.getString("generateCritterProtoMappingFile");
+        String itemProtoMappingFile = ns.getString("itemProtoMapping");
+        String critterProtoMappingFile = ns.getString("critterProtoMapping");
         String mapSourceFile = ns.getString("mapSourceFile");
         String mapTargetFile = ns.getString("mapTargetFile");
         String missingProtoHandling = ns.getString("missingProtoHandling");
+        if (missingProtoHandling == null) {
+            missingProtoHandling = "remove";
+        }
         Integer replaceValue = 0;
         try {
             replaceValue = Integer.parseInt(ns.getString("replaceValue"));
@@ -90,76 +107,138 @@ public class Main {
             replaceValue = -1;
         }
 
-        if (generateMappingFile != null) {
+        if (generateItemProtoMappingFile != null) {
+            //  generate proto mapping file from single source
             if (mappingFileFrom != null && mappingFileTo != null) {
-                try {
-                    Files.deleteIfExists(Paths.get(logParseFile));
-                    Files.deleteIfExists(Paths.get(generateMappingFile));
-                    String message = String.format("Generating mapping file %s, mapping from %s to %s.", generateMappingFile, mappingFileFrom, mappingFileTo);
-                    System.out.println(message);
-                    ProtoParser.logLine(message + "\n", logParseFile);
-                    ProtoParser protoParser = new ProtoParser();
-                    protoParser.setLogLevel(logLevel);
-                    List<Proto> source = protoParser.parseFromFile(mappingFileFrom, logParseFile);
-                    List<Proto> target = protoParser.parseFromFile(mappingFileTo, logParseFile);
-                    List<ProtoMapping> mapping = protoParser.compareProtosVerbose(source, target, logParseFile);
-                    protoParser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
-                } catch (IOException e) {
-                    String message = String.format("[Error] %s\n", e.getMessage());
-                    System.out.print(message);
-                    ProtoParser.logLine(message, logParseFile);
-                    e.printStackTrace();
-                }
+                generateItemProtoMappingFromSingleSource(logLevel, logParseFile, mappingFileFrom, mappingFileTo, generateItemProtoMappingFile);
+                //  generate proto mapping file from multiple sources
             } else if (mappingFilesFrom != null && mappingFilesTo != null) {
-                try {
-                    Files.deleteIfExists(Paths.get(logParseFile));
-                    Files.deleteIfExists(Paths.get(generateMappingFile));
-                    String message = String.format("Generating mapping file %s using from multiple source and target files\nSource: %s\nTarget: %s",
-                            generateMappingFile, Arrays.toString(mappingFilesFrom.toArray()), Arrays.toString(mappingFilesTo.toArray()));
-                    System.out.println(message);
-                    ProtoParser.logLine(message + "\n", logParseFile);
-                    ProtoParser protoParser = new ProtoParser();
-                    protoParser.setLogLevel(logLevel);
-                    List<Proto> source = protoParser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
-                    List<Proto> target = protoParser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
-                    List<ProtoMapping> mapping = protoParser.compareProtosVerbose(source, target, logParseFile);
-                    protoParser.generateMappingVerbose(mapping, generateMappingFile, logParseFile);
-                } catch (IOException e) {
-                    String message = String.format("[Error] %s", e.getMessage());
-                    System.out.println(message);
-                    ProtoParser.logLine(message + "\n", logParseFile);
-                    e.printStackTrace();
-                }
+                generateItemProtoMappingFromMultipleSources(logLevel, logParseFile, mappingFilesFrom, mappingFilesTo, generateItemProtoMappingFile);
             } else {
-                String message = String.format("[Error] Cannot generate mapping file without two proto ID files.\nHint: try parameters like '-gmf filename -p1 filename1 -p2 filename2'.");
+                String message = String.format("[Error] Cannot generate item mapping file without two proto ID files.\nHint: try parameters like '-gmf filename -p1 filename1 -p2 filename2'.");
                 System.out.print(message);
-                ProtoParser.logLine(message, logParseFile);
+                ItemProtoParser.logLine(message, logParseFile);
             }
         }
+
+        if (generateCritterProtoMappingFile != null) {
+            //  generate proto mapping file from multiple source
+            if (mappingFilesFrom != null && mappingFilesTo != null) {
+                generateCritterProtoMappingFromMultipleSources(logLevel, logParseFile, mappingFilesFrom, mappingFilesTo, generateCritterProtoMappingFile);
+            } else {
+                String message = String.format("[Error] Cannot generate critter mapping file without specifying (multiple) source and target proto ID files.\nHint: try parameters like '-gmf filename -p1 filename1 -p2 filename2'.");
+                System.out.print(message);
+                ItemProtoParser.logLine(message, logParseFile);
+            }
+        }
+
 
         Converter converter = new Converter();
         if (logLevel != null) {
             converter.setLogLevel(logLevel);
         }
-        if (protoMappingFile != null) {
+        if (mapSourceFile != null || mapTargetFile != null) {
             if (mapSourceFile != null && mapTargetFile != null) {
-                try {
-                    Files.deleteIfExists(Paths.get(logConversionFile));
-                    Files.deleteIfExists(Paths.get(mapTargetFile));
-                    converter.mapFromFile(protoMappingFile, logConversionFile);
-                    converter.convertFile(mapSourceFile, mapTargetFile, logConversionFile, missingProtoHandling, replaceValue);
-                } catch (IOException e) {
-                    String message = String.format("[Error] %s\n", e.getMessage());
+                if (itemProtoMappingFile != null && critterProtoMappingFile != null) {
+                    //  convert map
+                    convertMap(logLevel, logConversionFile, itemProtoMappingFile, critterProtoMappingFile, mapSourceFile, mapTargetFile, missingProtoHandling, replaceValue, converter);
+                } else {
+                    String message = String.format("[Error] Missing item or critter proto mapping file for conversion.\n");
                     System.out.print(message);
-                    ProtoParser.logLine(message, logConversionFile);
-                    e.printStackTrace();
+                    ItemProtoParser.logLine(message, logConversionFile);
                 }
             } else {
-                String message = String.format("[Error] Cannot convert map file with missing in/out parameters. Switch '--protoMapping' must be used with valid '--mapSourceFile' and '--mapTargetFile'.\n");
+                String message = String.format("[Error] Both map source and target params must be given for conversion.\n");
                 System.out.print(message);
-                ProtoParser.logLine(message, logConversionFile);
+                ItemProtoParser.logLine(message, logConversionFile);
             }
         }
+    }
 
+    private static void convertMap(String logLevel, String logConversionFile, String itemProtoMappingFile, String critterProtoMappingFile, String mapSourceFile, String mapTargetFile, String missingProtoHandling, Integer replaceValue, Converter converter) {
+        try {
+            Files.deleteIfExists(Paths.get(logConversionFile));
+            Files.deleteIfExists(Paths.get(mapTargetFile));
+
+            Map<Integer, Integer> itemProtoMapping = converter.mapFromFile(itemProtoMappingFile, logConversionFile);
+            converter.setGenericProtoMapping(itemProtoMapping);
+            Map<Integer, Integer> critterProtoMapping = converter.mapFromFile(critterProtoMappingFile, logConversionFile);
+            converter.setCritterProtoMapping(critterProtoMapping);
+
+            FomapParser fomapParser = new FomapParser();
+            fomapParser.setLogLevel(logLevel);
+            Fomap fomap = fomapParser.parseFromFile(mapSourceFile, logConversionFile);
+            converter.convertFomap(fomap, mapTargetFile, logConversionFile, missingProtoHandling, replaceValue);
+        } catch (IOException e) {
+            String message = String.format("[Error] %s\n", e.getMessage());
+            System.out.print(message);
+            ItemProtoParser.logLine(message, logConversionFile);
+            e.printStackTrace();
+        }
+    }
+
+    private static void generateItemProtoMappingFromSingleSource(String logLevel, String logParseFile, String mappingFileFrom, String mappingFileTo, String generateMappingFile) {
+        try {
+            Files.deleteIfExists(Paths.get(logParseFile));
+            Files.deleteIfExists(Paths.get(generateMappingFile));
+            String message = String.format("Generating mapping file %s, mapping from %s to %s.", generateMappingFile, mappingFileFrom, mappingFileTo);
+            System.out.println(message);
+            ItemProtoParser.logLine(message + "\n", logParseFile);
+            ItemProtoParser itemProtoParser = new ItemProtoParser();
+            itemProtoParser.setLogLevel(logLevel);
+            List<ItemProto> source = itemProtoParser.parseFromFile(mappingFileFrom, logParseFile);
+            List<ItemProto> target = itemProtoParser.parseFromFile(mappingFileTo, logParseFile);
+            List<ItemProtoMapping> mapping = itemProtoParser.compareProtosVerbose(source, target, logParseFile);
+            itemProtoParser.generateMappingVerboseToFile(mapping, generateMappingFile, logParseFile);
+        } catch (IOException e) {
+            String message = String.format("[Error] %s\n", e.getMessage());
+            System.out.print(message);
+            ItemProtoParser.logLine(message, logParseFile);
+            e.printStackTrace();
+        }
+    }
+
+    private static void generateItemProtoMappingFromMultipleSources(String logLevel, String logParseFile, List<String> mappingFilesFrom, List<String> mappingFilesTo, String generateMappingFile) {
+        try {
+            Files.deleteIfExists(Paths.get(logParseFile));
+            Files.deleteIfExists(Paths.get(generateMappingFile));
+            String message = String.format("Generating item proto mapping file %s using multiple source and target files\nSource: %s\nTarget: %s",
+                    generateMappingFile, Arrays.toString(mappingFilesFrom.toArray()), Arrays.toString(mappingFilesTo.toArray()));
+            System.out.println(message);
+            ItemProtoParser.logLine(message + "\n", logParseFile);
+            ItemProtoParser itemProtoParser = new ItemProtoParser();
+            itemProtoParser.setLogLevel(logLevel);
+            List<ItemProto> source = itemProtoParser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
+            List<ItemProto> target = itemProtoParser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
+            List<ItemProtoMapping> mapping = itemProtoParser.compareProtosVerbose(source, target, logParseFile);
+            itemProtoParser.generateMappingVerboseToFile(mapping, generateMappingFile, logParseFile);
+        } catch (IOException e) {
+            String message = String.format("[Error] %s", e.getMessage());
+            System.out.println(message);
+            ItemProtoParser.logLine(message + "\n", logParseFile);
+            e.printStackTrace();
+        }
+    }
+
+    private static void generateCritterProtoMappingFromMultipleSources(String logLevel, String logParseFile, List<String> mappingFilesFrom, List<String> mappingFilesTo, String generateMappingFile) {
+        try {
+            Files.deleteIfExists(Paths.get(logParseFile));
+            Files.deleteIfExists(Paths.get(generateMappingFile));
+            String message = String.format("Generating critter proto mapping file %s using multiple source and target files\nSource: %s\nTarget: %s",
+                    generateMappingFile, Arrays.toString(mappingFilesFrom.toArray()), Arrays.toString(mappingFilesTo.toArray()));
+            System.out.println(message);
+            CritterProtoParser.logLine(message + "\n", logParseFile);
+            CritterProtoParser critterProtoParser = new CritterProtoParser();
+            critterProtoParser.setLogLevel(logLevel);
+            List<CritterProto> source = critterProtoParser.parseFromMultipleFiles(mappingFilesFrom, logParseFile);
+            List<CritterProto> target = critterProtoParser.parseFromMultipleFiles(mappingFilesTo, logParseFile);
+            Map<Integer, Integer> critterProtoMapping = critterProtoParser.generateProtoMapping(source, target, logParseFile);
+            critterProtoParser.printMappingToFile(critterProtoMapping, generateMappingFile);
+        } catch (IOException e) {
+            String message = String.format("[Error] %s", e.getMessage());
+            System.out.println(message);
+            ItemProtoParser.logLine(message + "\n", logParseFile);
+            e.printStackTrace();
+        }
     }
 }
