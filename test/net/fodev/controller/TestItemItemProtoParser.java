@@ -1,8 +1,8 @@
 package net.fodev.controller;
 
 
-import net.fodev.model.Proto;
-import net.fodev.model.ProtoMapping;
+import net.fodev.model.ItemProto;
+import net.fodev.model.ItemProtoMapping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TestProtoParser {
+public class TestItemProtoParser {
     ProtoParser protoParser = new ProtoParser();
 
     @BeforeEach
@@ -30,8 +30,8 @@ public class TestProtoParser {
     @Test
     public void compare_Test_Valid() throws IOException {
         Files.deleteIfExists(Paths.get("lastParse.log"));
-        List<Proto> source = protoParser.parseFromFile("resources/generic_source.proto", "lastParse.log");
-        List<Proto> target = protoParser.parseFromFile("resources/generic_target.proto", "lastParse.log");
+        List<ItemProto> source = protoParser.parseFromFile("resources/generic_source.proto", "lastParse.log");
+        List<ItemProto> target = protoParser.parseFromFile("resources/generic_target.proto", "lastParse.log");
         protoParser.compareProtos(source, target, "lastParse.log");
     }
 
@@ -39,8 +39,8 @@ public class TestProtoParser {
     public void generateMapping_Test_Valid() throws IOException {
         Files.deleteIfExists(Paths.get("lastParse.log"));
         Files.deleteIfExists(Paths.get("generic.mapping"));
-        List<Proto> source = protoParser.parseFromFile("resources/generic_source.proto", "lastParse.log");
-        List<Proto> target = protoParser.parseFromFile("resources/generic_target.proto", "lastParse.log");
+        List<ItemProto> source = protoParser.parseFromFile("resources/generic_source.proto", "lastParse.log");
+        List<ItemProto> target = protoParser.parseFromFile("resources/generic_target.proto", "lastParse.log");
         Map<Integer, Integer> mapping = protoParser.compareProtos(source, target, "lastParse.log");
         protoParser.generateMapping(mapping, "generic.mapping", "lastParse.log");
     }
@@ -49,13 +49,13 @@ public class TestProtoParser {
     public void generateMappingFromMultipleFiles_Test_Valid() throws IOException {
         Files.deleteIfExists(Paths.get("out/lastParse.log"));
         Files.deleteIfExists(Paths.get("out/generic_and_ammo.mapping"));
-        List<Proto> source_ammo = protoParser.parseFromFile("resources/tlamk2/ammo.fopro", "out/lastParse.log");
-        List<Proto> source_generic = protoParser.parseFromFile("resources/tlamk2/generic.fopro", "out/lastParse.log");
-        List<Proto> target_ammo = protoParser.parseFromFile("resources/foclassic/ammo.fopro", "out/lastParse.log");
-        List<Proto> target_generic = protoParser.parseFromFile("resources/foclassic/generic.fopro", "out/lastParse.log");
-        List<Proto> source = source_ammo;
+        List<ItemProto> source_ammo = protoParser.parseFromFile("resources/tlamk2/ammo.fopro", "out/lastParse.log");
+        List<ItemProto> source_generic = protoParser.parseFromFile("resources/tlamk2/generic.fopro", "out/lastParse.log");
+        List<ItemProto> target_ammo = protoParser.parseFromFile("resources/foclassic/ammo.fopro", "out/lastParse.log");
+        List<ItemProto> target_generic = protoParser.parseFromFile("resources/foclassic/generic.fopro", "out/lastParse.log");
+        List<ItemProto> source = source_ammo;
         source.addAll(source_generic);
-        List<Proto> target = target_ammo;
+        List<ItemProto> target = target_ammo;
         target.addAll(target_generic);
         Map<Integer, Integer> mapping = protoParser.compareProtos(source, target, "out/lastParse.log");
         protoParser.generateMapping(mapping, "out/generic_and_ammo.mapping", "out/lastParse.log");
@@ -80,7 +80,7 @@ public class TestProtoParser {
         sources.add("resources/tlamk2/misc.fopro");
         sources.add("resources/tlamk2/wall.fopro");
         sources.add("resources/tlamk2/weapon.fopro");
-        List<Proto> source_all_in_one = protoParser.parseFromMultipleFiles(sources, "out/lastParse.log");
+        List<ItemProto> source_all_in_one = protoParser.parseFromMultipleFiles(sources, "out/lastParse.log");
 
         List<String> targets = new ArrayList<>();
         targets.add("resources/foclassic/ammo.fopro");
@@ -104,10 +104,10 @@ public class TestProtoParser {
         targets.add("resources/foclassic/trigger.fopro");
         targets.add("resources/foclassic/wall.fopro");
         targets.add("resources/foclassic/weapon.fopro");
-        List<Proto> target_all_in_one = protoParser.parseFromMultipleFiles(targets, "out/lastParse.log");
+        List<ItemProto> target_all_in_one = protoParser.parseFromMultipleFiles(targets, "out/lastParse.log");
 
-        List<ProtoMapping> mapping = protoParser.compareProtosVerbose(source_all_in_one, target_all_in_one, "out/lastParse.log");
-        protoParser.generateMappingVerbose(mapping, "out/all_in_one_verbose.mapping", "out/lastParse.log");
+        List<ItemProtoMapping> mapping = protoParser.compareProtosVerbose(source_all_in_one, target_all_in_one, "out/lastParse.log");
+        protoParser.generateMappingVerboseToFile(mapping, "out/all_in_one_verbose.mapping", "out/lastParse.log");
     }
 
 

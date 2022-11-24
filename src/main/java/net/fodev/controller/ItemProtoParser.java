@@ -1,7 +1,7 @@
 package net.fodev.controller;
 
-import net.fodev.model.Proto;
-import net.fodev.model.ProtoMapping;
+import net.fodev.model.ItemProto;
+import net.fodev.model.ItemProtoMapping;
 
 import java.io.*;
 import java.util.*;
@@ -26,8 +26,8 @@ public class ProtoParser {
         }
     }
 
-    public List<Proto> parseFromMultipleFiles(List<String> fileNames, String logFileName) throws IOException {
-        List<Proto> result = new ArrayList<>();
+    public List<ItemProto> parseFromMultipleFiles(List<String> fileNames, String logFileName) throws IOException {
+        List<ItemProto> result = new ArrayList<>();
         if (fileNames != null && fileNames.size() > 1) {
             for (String fileName : fileNames) {
                 result.addAll(parseFromFile(fileName, logFileName));
@@ -36,8 +36,8 @@ public class ProtoParser {
         return result;
     }
 
-    public List<Proto> parseFromFile(String fileName, String logFileName) throws IOException {
-        List<Proto> protos = new ArrayList<>();
+    public List<ItemProto> parseFromFile(String fileName, String logFileName) throws IOException {
+        List<ItemProto> itemProtos = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String line;
         String key = "[Proto]";
@@ -53,7 +53,7 @@ public class ProtoParser {
             if (line != null) {
                 if (line.length() >= key.length()) {
                     if (line.substring(0, key.length()).equals(key)) {
-                        Proto proto = new Proto();
+                        ItemProto itemProto = new ItemProto();
                         boolean finishedReadingProto = false;
                         do {
                             line = br.readLine();
@@ -66,338 +66,338 @@ public class ProtoParser {
                                     String[] keyValue = line.split("=");
                                     try {
                                         if (keyValue.length > 1) {
-                                            proto.setSourceFile(fileName);
+                                            itemProto.setSourceFile(fileName);
                                             if (ignoreList.contains(keyValue[0])) {
                                                 //  do nothing
 
                                             //  important properties, used for comparison and reference
                                             } else if (keyValue[0].equalsIgnoreCase("ProtoId")) {
-                                                proto.setProtoId(Integer.parseInt(keyValue[1]));
+                                                itemProto.setProtoId(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("PicMap")) {
-                                                proto.setPicMap(keyValue[1]);
+                                                itemProto.setPicMap(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("PicInv")) {
-                                                proto.setPicInv(keyValue[1]);
+                                                itemProto.setPicInv(keyValue[1]);
 
                                             //  these are not important for now, only to ensure less warning in log
                                             //  added for completeness, only foclassic proto id's
 
                                             //  generic
                                             } else if (keyValue[0].equalsIgnoreCase("AnimHide_0")) {
-                                                proto.setAnimHide0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimHide0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimHide_1")) {
-                                                proto.setAnimHide1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimHide1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimShow_0")) {
-                                                proto.setAnimShow0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimShow0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimShow_1")) {
-                                                proto.setAnimShow1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimShow1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimStay_0")) {
-                                                proto.setAnimStay0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimStay0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimStay_1")) {
-                                                proto.setAnimStay1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimStay1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimWaitBase")) {
-                                                proto.setAnimWaitBase(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimWaitBase(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimWaitRndMax")) {
-                                                proto.setAnimWaitRndMax(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimWaitRndMax(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("AnimWaitRndMin")) {
-                                                proto.setAnimWaitRndMin(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAnimWaitRndMin(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Corner")) {
-                                                proto.setCorner(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCorner(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Cost")) {
-                                                proto.setCost(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCost(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("CraftLevel")) {
-                                                proto.setCraftLevel(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCraftLevel(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Deteriorable")) {
-                                                proto.setDeteriorable(keyValue[1]);
+                                                itemProto.setDeteriorable(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("DisableEgg")) {
-                                                proto.setDisableEgg(keyValue[1]);
+                                                itemProto.setDisableEgg(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("DrawOrderOffsetHexY")) {
-                                                proto.setDrawOrderOffsetHexY(Integer.parseInt(keyValue[1]));
+                                                itemProto.setDrawOrderOffsetHexY(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Flags")) {
-                                                proto.setFlags(Integer.parseInt(keyValue[1]));
+                                                itemProto.setFlags(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("GroundLevel")) {
-                                                proto.setGroundLevel(Integer.parseInt(keyValue[1]));
+                                                itemProto.setGroundLevel(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("LightDistance")) {
-                                                proto.setLightDistance(Integer.parseInt(keyValue[1]));
+                                                itemProto.setLightDistance(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("LightIntensity")) {
-                                                proto.setLightIntensity(Integer.parseInt(keyValue[1]));
+                                                itemProto.setLightIntensity(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("LightColor")) {
-                                                proto.setLightColor(Integer.parseInt(keyValue[1]));
+                                                itemProto.setLightColor(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Material")) {
-                                                proto.setMaterial(keyValue[1]);
+                                                itemProto.setMaterial(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Misc_ChargeMax")) {
-                                                proto.setMiscChargeMax(Integer.parseInt(keyValue[1]));
+                                                itemProto.setMiscChargeMax(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("NeedBlueprint")) {
-                                                proto.setNeedBlueprint(Integer.parseInt(keyValue[1]));
+                                                itemProto.setNeedBlueprint(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("OffsetX")) {
-                                                proto.setOffsetX(Integer.parseInt(keyValue[1]));
+                                                itemProto.setOffsetX(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("OffsetY")) {
-                                                proto.setOffsetY(Integer.parseInt(keyValue[1]));
+                                                itemProto.setOffsetY(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("ScriptFunc")) {
-                                                proto.setScriptFunc(keyValue[1]);
+                                                itemProto.setScriptFunc(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("ScriptModule")) {
-                                                proto.setScriptModule(keyValue[1]);
+                                                itemProto.setScriptModule(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Slot")) {
-                                                proto.setSlot(keyValue[1]);
+                                                itemProto.setSlot(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("SoundId")) {
-                                                proto.setSoundId(Integer.parseInt(keyValue[1]));
+                                                itemProto.setSoundId(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("SpriteCut")) {
-                                                proto.setSpriteCut(Integer.parseInt(keyValue[1]));
+                                                itemProto.setSpriteCut(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Stackable")) {
-                                                proto.setStackable(keyValue[1]);
+                                                itemProto.setStackable(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("StartCount")) {
-                                                proto.setStartCount(Integer.parseInt(keyValue[1]));
+                                                itemProto.setStartCount(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("StartValue_1")) {
-                                                proto.setStartValue1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setStartValue1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Type")) {
-                                                proto.setType(keyValue[1]);
+                                                itemProto.setType(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weight")) {
-                                                proto.setWeight(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeight(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim1")) {
-                                                proto.setWeaponAnim1(keyValue[1]);
+                                                itemProto.setWeaponAnim1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim2_0")) {
-                                                proto.setWeaponAnim2_0(keyValue[1]);
+                                                itemProto.setWeaponAnim2_0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Anim2_1")) {
-                                                proto.setWeaponAnim2_1(keyValue[1]);
+                                                itemProto.setWeaponAnim2_1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Volume")) {
-                                                proto.setVolume(Integer.parseInt(keyValue[1]));
+                                                itemProto.setVolume(Integer.parseInt(keyValue[1]));
 
                                             //  ammo
                                             } else if (keyValue[0].equalsIgnoreCase("Ammo_AcMod")) {
-                                                proto.setAmmoAcMod(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAmmoAcMod(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Ammo_Caliber")) {
-                                                proto.setAmmoCaliber(keyValue[1]);
+                                                itemProto.setAmmoCaliber(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Ammo_DmgDiv")) {
-                                                proto.setAmmoDmgDiv(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAmmoDmgDiv(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Ammo_DmgMult")) {
-                                                proto.setAmmoDmgMult(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAmmoDmgMult(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Ammo_DrMod")) {
-                                                proto.setAmmoDrMod(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAmmoDrMod(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Ammo_DTDiv")) {
-                                                proto.setAmmoDtDiv(Integer.parseInt(keyValue[1]));
+                                                itemProto.setAmmoDtDiv(Integer.parseInt(keyValue[1]));
 
                                             //  armor
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_AC")) {
-                                                proto.setArmorAc(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorAc(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CMCritChance")) {
-                                                proto.setArmorCmCritChance(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCmCritChance(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CMCritPower")) {
-                                                proto.setArmorCmCritPower(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCmCritPower(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeFemale")) {
-                                                proto.setArmorCrTypeFemale(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCrTypeFemale(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeFemale2")) {
-                                                proto.setArmorCrTypeFemale2(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCrTypeFemale2(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale")) {
-                                                proto.setArmorCrTypeMale(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCrTypeMale(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale2")) {
-                                                proto.setArmorCrTypeMale2(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCrTypeMale2(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale3")) {
-                                                proto.setArmorCrTypeMale3(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCrTypeMale3(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_CrTypeMale4")) {
-                                                proto.setArmorCrTypeMale4(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorCrTypeMale4(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DRElectr")) {
-                                                proto.setArmorDrElectr(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrElectr(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DREmp")) {
-                                                proto.setArmorDrEmp(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrEmp(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DRExplode")) {
-                                                proto.setArmorDrExplode(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrExplode(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DRFire")) {
-                                                proto.setArmorDrFire(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrFire(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DRLaser")) {
-                                                proto.setArmorDrLaser(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrLaser(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DRNormal")) {
-                                                proto.setArmorDrNormal(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrNormal(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DRPlasma")) {
-                                                proto.setArmorDrPlasma(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDrPlasma(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTElectr")) {
-                                                proto.setArmorDtElectr(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtElectr(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTEmp")) {
-                                                proto.setArmorDtEmp(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtEmp(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTExplode")) {
-                                                proto.setArmorDtExplode(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtExplode(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTFire")) {
-                                                proto.setArmorDtFire(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtFire(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTLaser")) {
-                                                proto.setArmorDtLaser(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtLaser(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTNormal")) {
-                                                proto.setArmorDtNormal(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtNormal(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_DTPlasma")) {
-                                                proto.setArmorDtPlasma(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorDtPlasma(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Armor_Perk")) {
-                                                proto.setArmorPerk(Integer.parseInt(keyValue[1]));
+                                                itemProto.setArmorPerk(Integer.parseInt(keyValue[1]));
 
                                             //  blueprint
                                             } else if (keyValue[0].equalsIgnoreCase("Blueprint_Id")) {
-                                                proto.setBlueprintId(Integer.parseInt(keyValue[1]));
+                                                itemProto.setBlueprintId(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Blueprint_Level")) {
-                                                proto.setBlueprintLevel(Integer.parseInt(keyValue[1]));
+                                                itemProto.setBlueprintLevel(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Blueprint_Param")) {
-                                                proto.setBlueprintParam(Integer.parseInt(keyValue[1]));
+                                                itemProto.setBlueprintParam(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Blueprint_Type")) {
-                                                proto.setBlueprintType(Integer.parseInt(keyValue[1]));
+                                                itemProto.setBlueprintType(Integer.parseInt(keyValue[1]));
 
                                             //  car
                                             } else if (keyValue[0].equalsIgnoreCase("BlockLines")) {
-                                                proto.setBlockLines(keyValue[1]);
+                                                itemProto.setBlockLines(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Car_CrittersCapacity")) {
-                                                proto.setCarCrittersCapacity(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarCrittersCapacity(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_DeteriorationRate")) {
-                                                proto.setCarDeteriorationRate(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarDeteriorationRate(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_Entrance")) {
-                                                proto.setCarEntrance(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarEntrance(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_FuelConsumption")) {
-                                                proto.setCarFuelConsumption(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarFuelConsumption(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_MaxDeterioration")) {
-                                                proto.setCarMaxDeterioration(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarMaxDeterioration(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_MovementType")) {
-                                                proto.setCarMovementType(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarMovementType(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_Passability")) {
-                                                proto.setCarPassability(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarPassability(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_Speed")) {
-                                                proto.setCarSpeed(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarSpeed(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Car_TankVolume")) {
-                                                proto.setCarTankVolume(Integer.parseInt(keyValue[1]));
+                                                itemProto.setCarTankVolume(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("ChildLines_0")) {
-                                                proto.setChildLines0(keyValue[1]);
+                                                itemProto.setChildLines0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("ChildLines_1")) {
-                                                proto.setChildLines1(keyValue[1]);
+                                                itemProto.setChildLines1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("ChildPid_0")) {
-                                                proto.setChildPid0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setChildPid0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("ChildPid_1")) {
-                                                proto.setChildPid1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setChildPid1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("ChildPid_2")) {
-                                                proto.setChildPid2(Integer.parseInt(keyValue[1]));
+                                                itemProto.setChildPid2(Integer.parseInt(keyValue[1]));
 
                                             //  container
                                             } else if (keyValue[0].equalsIgnoreCase("Container_CannotPickUp")) {
-                                                proto.setContainerCannotPickUp(Integer.parseInt(keyValue[1]));
+                                                itemProto.setContainerCannotPickUp(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Container_Changeble")) {
-                                                proto.setContainerChangeble(Integer.parseInt(keyValue[1]));
+                                                itemProto.setContainerChangeble(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Container_MagicHandsGrnd")) {
-                                                proto.setContainerMagicHandsGrnd(Integer.parseInt(keyValue[1]));
+                                                itemProto.setContainerMagicHandsGrnd(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Container_Volume")) {
-                                                proto.setContainerVolume(Integer.parseInt(keyValue[1]));
+                                                itemProto.setContainerVolume(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Locker_Condition")) {
-                                                proto.setLockerCondition(Integer.parseInt(keyValue[1]));
+                                                itemProto.setLockerCondition(Integer.parseInt(keyValue[1]));
 
                                             //  door
                                             } else if (keyValue[0].equalsIgnoreCase("Door_NoBlockLight")) {
-                                                proto.setDoorNoBlockLight(Integer.parseInt(keyValue[1]));
+                                                itemProto.setDoorNoBlockLight(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Door_NoBlockMove")) {
-                                                proto.setDoorNoBlockMove(Integer.parseInt(keyValue[1]));
+                                                itemProto.setDoorNoBlockMove(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Door_NoBlockShoot")) {
-                                                proto.setDoorNoBlockShoot(Integer.parseInt(keyValue[1]));
+                                                itemProto.setDoorNoBlockShoot(Integer.parseInt(keyValue[1]));
 
                                             //  drug
                                             } else if (keyValue[0].equalsIgnoreCase("Ingredient_Type_1")) {
-                                                proto.setIngredientType1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setIngredientType1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Ingredient_Returns_1")) {
-                                                proto.setIngredientReturns1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setIngredientReturns1(Integer.parseInt(keyValue[1]));
 
                                             //  grid
                                             } else if (keyValue[0].equalsIgnoreCase("Grid_Type")) {
-                                                proto.setGridType(Integer.parseInt(keyValue[1]));
+                                                itemProto.setGridType(Integer.parseInt(keyValue[1]));
 
                                             //  misc
                                             } else if (keyValue[0].equalsIgnoreCase("HolodiskNum")) {
-                                                proto.setHolodiscNum(Integer.parseInt(keyValue[1]));
+                                                itemProto.setHolodiscNum(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Misc_ToolSkillBonus")) {
-                                                proto.setMiscToolSkillBonus(Integer.parseInt(keyValue[1]));
+                                                itemProto.setMiscToolSkillBonus(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Misc_ToolSkillNum")) {
-                                                proto.setMiscToolSkillNum(Integer.parseInt(keyValue[1]));
+                                                itemProto.setMiscToolSkillNum(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("RadioBroadcastSend")) {
-                                                proto.setRadioBroadcastSend(Integer.parseInt(keyValue[1]));
+                                                itemProto.setRadioBroadcastSend(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("RadioChannel")) {
-                                                proto.setRadioChannel(Integer.parseInt(keyValue[1]));
+                                                itemProto.setRadioChannel(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("RevealSneakers")) {
-                                                proto.setRevealSneakers(Integer.parseInt(keyValue[1]));
+                                                itemProto.setRevealSneakers(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("StartValue_2")) {
-                                                proto.setStartValue2(Integer.parseInt(keyValue[1]));
+                                                itemProto.setStartValue2(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("StartValue_3")) {
-                                                proto.setStartValue3(Integer.parseInt(keyValue[1]));
+                                                itemProto.setStartValue3(Integer.parseInt(keyValue[1]));
 
                                             //  weapon
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_ActiveUses")) {
-                                                proto.setWeaponActiveUses(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponActiveUses(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Aim_0")) {
-                                                proto.setWeaponAim0(keyValue[1]);
+                                                itemProto.setWeaponAim0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Aim_1")) {
-                                                proto.setWeaponAim1(keyValue[1]);
+                                                itemProto.setWeaponAim1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_ApCost_0")) {
-                                                proto.setWeaponApCost0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponApCost0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_ApCost_1")) {
-                                                proto.setWeaponApCost1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponApCost1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Caliber")) {
-                                                proto.setWeaponCaliber(keyValue[1]);
+                                                itemProto.setWeaponCaliber(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_CriticalFailture")) {
-                                                proto.setWeaponCriticalFailure(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponCriticalFailure(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DefaultAmmoPid")) {
-                                                proto.setWeaponDefaultAmmoPid(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponDefaultAmmoPid(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgMin_0")) {
-                                                proto.setWeaponDmgMin0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponDmgMin0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgMin_1")) {
-                                                proto.setWeaponDmgMin1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponDmgMin1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgMax_0")) {
-                                                proto.setWeaponDmgMax0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponDmgMax0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgMax_1")) {
-                                                proto.setWeaponDmgMax1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponDmgMax1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgType_0")) {
-                                                proto.setWeaponDmgType0(keyValue[1]);
+                                                itemProto.setWeaponDmgType0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgType_1")) {
-                                                proto.setWeaponDmgType1(keyValue[1]);
+                                                itemProto.setWeaponDmgType1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_DmgType_2")) {
-                                                proto.setWeaponDmgType2(keyValue[1]);
+                                                itemProto.setWeaponDmgType2(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Effect_0")) {
-                                                proto.setWeaponEffect0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponEffect0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Effect_1")) {
-                                                proto.setWeaponEffect1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponEffect1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_IsUnarmed")) {
-                                                proto.setWeaponIsUnarmed(keyValue[1]);
+                                                itemProto.setWeaponIsUnarmed(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_MinStrength")) {
-                                                proto.setWeaponMinStrength(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponMinStrength(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_MaxAmmoCount")) {
-                                                proto.setWeaponMaxAmmoCount(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponMaxAmmoCount(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_MaxDist_0")) {
-                                                proto.setWeaponMaxDist0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponMaxDist0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_MaxDist_1")) {
-                                                proto.setWeaponMaxDist1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponMaxDist1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_NoRunning")) {
-                                                proto.setWeaponNoRunning(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponNoRunning(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Perk")) {
-                                                proto.setWeaponPerk(keyValue[1]);
+                                                itemProto.setWeaponPerk(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_PicUse_0")) {
-                                                proto.setWeaponPicUse0(keyValue[1]);
+                                                itemProto.setWeaponPicUse0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_PicUse_1")) {
-                                                proto.setWeaponPicUse1(keyValue[1]);
+                                                itemProto.setWeaponPicUse1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_PicUse_2")) {
-                                                proto.setWeaponPicUse2(keyValue[1]);
+                                                itemProto.setWeaponPicUse2(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Remove_0")) {
-                                                proto.setWeaponRemove0(keyValue[1]);
+                                                itemProto.setWeaponRemove0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Remove_1")) {
-                                                proto.setWeaponRemove1(keyValue[1]);
+                                                itemProto.setWeaponRemove1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Round_0")) {
-                                                proto.setWeaponRound0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponRound0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Round_1")) {
-                                                proto.setWeaponRound1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponRound1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Skill_0")) {
-                                                proto.setWeaponSkill0(keyValue[1]);
+                                                itemProto.setWeaponSkill0(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Skill_1")) {
-                                                proto.setWeaponSkill1(keyValue[1]);
+                                                itemProto.setWeaponSkill1(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_Skill_2")) {
-                                                proto.setWeaponSkill2(keyValue[1]);
+                                                itemProto.setWeaponSkill2(keyValue[1]);
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_SoundId_0")) {
-                                                proto.setWeaponSoundId0(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponSoundId0(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_SoundId_1")) {
-                                                proto.setWeaponSoundId1(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponSoundId1(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_UnarmedMinAgility")) {
-                                                proto.setWeaponUnarmedMinAgility(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponUnarmedMinAgility(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_UnarmedMinLevel")) {
-                                                proto.setWeaponUnarmedMinLevel(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponUnarmedMinLevel(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_UnarmedMinUnarmed")) {
-                                                proto.setWeaponUnarmedMinUnarmed(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponUnarmedMinUnarmed(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_UnarmedPriority")) {
-                                                proto.setWeaponUnarmedPriority(Integer.parseInt(keyValue[1]));
+                                                itemProto.setWeaponUnarmedPriority(Integer.parseInt(keyValue[1]));
                                             } else if (keyValue[0].equalsIgnoreCase("Weapon_UnarmedTree")) {
-                                                proto.setWeaponUnarmedTree(keyValue[1]);
+                                                itemProto.setWeaponUnarmedTree(keyValue[1]);
 
                                             //  add to ignore list unrecognized fields to reduce spam in log
                                             } else {
@@ -418,10 +418,10 @@ public class ProtoParser {
                                 }
                             }
                         } while (!finishedReadingProto);
-                        protos.add(proto);
+                        itemProtos.add(itemProto);
                         if (logLevel <= LogLevel.info.ordinal()) {
-                            logger.write(String.format("[Info] Line %d: Parsed proto (%d)\n", lineIndex, proto.getProtoId()));
-                            System.out.println(String.format("[Info] Line %d: Parsed proto (%d)", lineIndex, proto.getProtoId()));
+                            logger.write(String.format("[Info] Line %d: Parsed proto (%d)\n", lineIndex, itemProto.getProtoId()));
+                            System.out.println(String.format("[Info] Line %d: Parsed proto (%d)", lineIndex, itemProto.getProtoId()));
                         }
                     } else {
                         line = br.readLine();
@@ -439,11 +439,11 @@ public class ProtoParser {
         logger.write("Done.\n\n");
         System.out.println("Done.");
         logger.close();
-        return protos;
+        return itemProtos;
     }
 
-    public List<ProtoMapping> compareProtosVerbose(List<Proto> source, List<Proto> target, String logFileName) throws IOException {
-        List<ProtoMapping> mapping = new ArrayList<>();
+    public List<ItemProtoMapping> compareProtosVerbose(List<ItemProto> source, List<ItemProto> target, String logFileName) throws IOException {
+        List<ItemProtoMapping> mapping = new ArrayList<>();
         FileWriter logger = new FileWriter(logFileName, true);
         logger.write(String.format("Comparing protos..\n"));
         System.out.println(String.format("Comparing protos."));
@@ -452,27 +452,27 @@ public class ProtoParser {
         logger.write(String.format("Target protos: %d\n", target.size()));
         System.out.println(String.format("Target protos: %d", target.size()));
 
-        for (Proto proto : source) {
+        for (ItemProto itemProto : source) {
             int i = 0;
             int count = 0;
             while (i < target.size()) {
-                Proto t = target.get(i);
-                if (proto.sameMapPic(t) && proto.sameInventoryPic(t)) {
+                ItemProto t = target.get(i);
+                if (itemProto.sameMapPic(t) && itemProto.sameInventoryPic(t)) {
                     if (count > 0) {
                         if (logLevel <= LogLevel.warn.ordinal()) {
                             String message = String.format("[Warning] Multiple match found for art: [%s %s] (%d, %d) (%s %s)\n",
-                                    proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                                    itemProto.getPicMap(), itemProto.getPicInv(), itemProto.getProtoId(), t.getProtoId(), itemProto.getSourceFile(), t.getSourceFile());
                             logger.write(message);
                             System.out.print(message);
                         }
                     }
-                    ProtoMapping protoMapping = new ProtoMapping(proto.getProtoId(), t.getProtoId(), proto.getPicMap(), proto.getPicInv(),
-                            proto.getSourceFile(), t.getSourceFile());
-                    mapping.add(protoMapping);
+                    ItemProtoMapping itemProtoMapping = new ItemProtoMapping(itemProto.getProtoId(), t.getProtoId(), itemProto.getPicMap(), itemProto.getPicInv(),
+                            itemProto.getSourceFile(), t.getSourceFile());
+                    mapping.add(itemProtoMapping);
                     count++;
                     if (logLevel <= LogLevel.info.ordinal()) {
                         String message = String.format("[Info] Art: [%s %s] (%d, %d) (%s %s)\n",
-                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                                itemProto.getPicMap(), itemProto.getPicInv(), itemProto.getProtoId(), t.getProtoId(), itemProto.getSourceFile(), t.getSourceFile());
                         logger.write(message);
                         System.out.print(message);
                     }
@@ -481,7 +481,7 @@ public class ProtoParser {
                 if (i >= target.size() && count == 0) {
                     if (logLevel <= LogLevel.warn.ordinal()) {
                         String message = String.format("[Warning] No proto match found for: [%s %s] %d (%s)\n",
-                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), proto.getSourceFile());
+                                itemProto.getPicMap(), itemProto.getPicInv(), itemProto.getProtoId(), itemProto.getSourceFile());
                         logger.write(message);
                         System.out.print(message);
                     }
@@ -497,7 +497,7 @@ public class ProtoParser {
         return mapping;
     }
 
-    public Map<Integer, Integer> compareProtos(List<Proto> source, List<Proto> target, String logFileName) throws IOException {
+    public Map<Integer, Integer> compareProtos(List<ItemProto> source, List<ItemProto> target, String logFileName) throws IOException {
         Map map = new TreeMap<Integer, Integer>();
         FileWriter logger = new FileWriter(logFileName, true);
         logger.write(String.format("Comparing protos..\n"));
@@ -507,25 +507,25 @@ public class ProtoParser {
         logger.write(String.format("Target protos: %d\n", target.size()));
         System.out.println(String.format("Target protos: %d", target.size()));
 
-        for (Proto proto : source) {
+        for (ItemProto itemProto : source) {
             int i = 0;
             int count = 0;
             while (i < target.size()) {
-                Proto t = target.get(i);
-                if (proto.sameMapPic(t) && proto.sameInventoryPic(t)) {
+                ItemProto t = target.get(i);
+                if (itemProto.sameMapPic(t) && itemProto.sameInventoryPic(t)) {
                     if (count > 0) {
                         if (logLevel <= LogLevel.warn.ordinal()) {
                             String message = String.format("[Warning] Multiple match found for art: [%s %s] (%d, %d) (%s %s)\n",
-                                    proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                                    itemProto.getPicMap(), itemProto.getPicInv(), itemProto.getProtoId(), t.getProtoId(), itemProto.getSourceFile(), t.getSourceFile());
                             logger.write(message);
                             System.out.print(message);
                         }
                     }
-                    map.put(proto.getProtoId(), t.getProtoId());
+                    map.put(itemProto.getProtoId(), t.getProtoId());
                     count++;
                     if (logLevel <= LogLevel.info.ordinal()) {
                         String message = String.format("[Info] Art: [%s %s] (%d, %d) (%s %s)\n",
-                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), t.getProtoId(), proto.getSourceFile(), t.getSourceFile());
+                                itemProto.getPicMap(), itemProto.getPicInv(), itemProto.getProtoId(), t.getProtoId(), itemProto.getSourceFile(), t.getSourceFile());
                         logger.write(message);
                         System.out.print(message);
                     }
@@ -534,7 +534,7 @@ public class ProtoParser {
                 if (i >= target.size() && count == 0) {
                     if (logLevel <= LogLevel.warn.ordinal()) {
                         String message = String.format("[Warning] No proto match found for: [%s %s] %d (%s)\n",
-                                proto.getPicMap(), proto.getPicInv(), proto.getProtoId(), proto.getSourceFile());
+                                itemProto.getPicMap(), itemProto.getPicInv(), itemProto.getProtoId(), itemProto.getSourceFile());
                         logger.write(message);
                         System.out.print(message);
                     }
@@ -568,14 +568,14 @@ public class ProtoParser {
         outPutter.close();
     }
 
-    public void generateMappingVerbose(List<ProtoMapping> mapping, String outputFileName, String logFileName) throws IOException {
+    public void generateMappingVerboseToFile(List<ItemProtoMapping> mapping, String outputFileName, String logFileName) throws IOException {
         FileWriter outPutter = new FileWriter(outputFileName);
         FileWriter logger = new FileWriter(logFileName, true);
 
         logger.write(String.format("Generating mapping file..\n"));
         System.out.println(String.format("Generating mapping file.."));
 
-        for (ProtoMapping p : mapping) {
+        for (ItemProtoMapping p : mapping) {
             String line = String.format("%d %d %s %s %s %s\n",
                     p.getSourceProtoId(), p.getTargetProtoId(), p.getPicMap(), p.getPicInv(), p.getSourceFile(), p.getTargetFile());
             outPutter.write(line);
@@ -589,10 +589,19 @@ public class ProtoParser {
         outPutter.close();
     }
 
+    public Map<Integer, Integer> generateMapping(List<ItemProtoMapping> mapping) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (ItemProtoMapping p : mapping) {
+            map.put(p.getSourceProtoId(), p.getTargetProtoId());
+        }
+        return map;
+    }
+
+
     public void setLogLevel(String logLevel) {
-        if ("warning".equalsIgnoreCase(logLevel)) {
+        if ("warning".equalsIgnoreCase(logLevel) || "warn".equalsIgnoreCase(logLevel)) {
             this.logLevel = 1;
-        } else if ("error".equalsIgnoreCase(logLevel)) {
+        } else if ("error".equalsIgnoreCase(logLevel) || "err".equalsIgnoreCase(logLevel)) {
             this.logLevel = 2;
         } else {
             this.logLevel = 0;
