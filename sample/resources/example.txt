@@ -1,0 +1,29 @@
+##	ONLY IF NEEDED - Run maven script to build/deploy executable jar if 'target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar' is not available.
+mvn clean compile assembly:single
+
+##	Run the following commands from the main folder: [your_path_to_git_local]/foclassic-map-converter
+
+##	Generate protoID mapping file from tlamk2 to foclassic, using al fopro files in the respective folders. 
+##	For simplicity copy the tlamk2 foproto files into resources/tlmak2 and foclassic foproto files into resources/foclassic folders. 
+##	Output generated will be a verbose mapping file between the tlamk2 and foclassic versions
+
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -gmf out/all_in_one_verbose.mapping -ps1 resources/tlamk2/ammo.fopro resources/tlamk2/animals.fopro resources/tlamk2/armor.fopro resources/tlamk2/book.fopro resources/tlamk2/car.fopro resources/tlamk2/container.fopro resources/tlamk2/door.fopro resources/tlamk2/drug.fopro resources/tlamk2/generic.fopro resources/tlamk2/grid.fopro resources/tlamk2/key.fopro resources/tlamk2/misc.fopro resources/tlamk2/wall.fopro resources/tlamk2/weapon.fopro -ps2 resources/foclassic/ammo.fopro resources/foclassic/armor.fopro resources/foclassic/blueprint.fopro resources/foclassic/car.fopro resources/foclassic/container.fopro resources/foclassic/movable_container.fopro resources/foclassic/door.fopro resources/foclassic/drug.fopro resources/foclassic/dynamic.fopro resources/foclassic/generic.fopro resources/foclassic/grid.fopro resources/foclassic/helmet.fopro resources/foclassic/key.fopro resources/foclassic/map_object.fopro resources/foclassic/misc.fopro resources/foclassic/smo.fopro resources/foclassic/spot.fopro resources/foclassic/transfer.fopro resources/foclassic/trigger.fopro resources/foclassic/wall.fopro resources/foclassic/weapon.fopro -lp out -ll warning
+
+##	Convert the specified map using the mapping file generated with command above
+##	Output will be the converted map file. Simple example use on cath_level1.fomap
+
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_tlamk2_ignored.fomap -lp out -ll warning
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_tlamk2_replaced.fomap -mph replace -rv 106 -lp out -ll warning 
+
+
+
+
+-ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_converted.fomap -ipm out/items_verbose.mapping -cpm out/critters.mapping -mph remove -lp out -ll warning 
+
+
+
+
+
+
+
+java -jar target/foclassic-map-converter-1.0-SNAPSHOT-jar-with-dependencies.jar -pm out/all_in_one_verbose.mapping -ms resources/tlamk2/maps/barter_ground.fomap -mt out/barter_ground_converted.fomap -lp out -ll warning
