@@ -1,0 +1,5 @@
+Processing conversion file.
+Processing conversion file.
+Parsing fomap file: resources\tlamk2\maps\waste_level1.fomap.
+Parsing objects.
+Converting fomap to 'out\waste_level1_converted.fomap', handling missing proto id's as: 'remove' with default value: '-1' if applicable.

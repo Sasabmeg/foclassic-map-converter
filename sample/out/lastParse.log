@@ -1,0 +1,115 @@
+Generating critter proto mapping file out\critters.mapping using multiple source and target files
+Source: [resources\tlamk2\proto\critters\fallout2.fopro, resources\tlamk2\proto\critters\tla.fopro, resources\tlamk2\proto\critters\tlamk2.fopro, resources\tlamk2\proto\critters\TlaMK2Dex.fopro]
+Target: [resources\foclassic\proto\critters\2238.fopro, resources\foclassic\proto\critters\aliens.fopro, resources\foclassic\proto\critters\bandits.fopro, resources\foclassic\proto\critters\bounty.fopro, resources\foclassic\proto\critters\brahmins.fopro, resources\foclassic\proto\critters\citizens.fopro, resources\foclassic\proto\critters\companions.fopro, resources\foclassic\proto\critters\crv_encounter.fopro, resources\foclassic\proto\critters\crv_guards.fopro, resources\foclassic\proto\critters\deathclaws.fopro, resources\foclassic\proto\critters\docan_critters.fopro, resources\foclassic\proto\critters\dogs.fopro, resources\foclassic\proto\critters\dungeons.fopro, resources\foclassic\proto\critters\encounter.fopro, resources\foclassic\proto\critters\geckos.fopro, resources\foclassic\proto\critters\ghouls.fopro, resources\foclassic\proto\critters\guards.fopro, resources\foclassic\proto\critters\insects.fopro, resources\foclassic\proto\critters\invalid.fopro, resources\foclassic\proto\critters\merchants.fopro, resources\foclassic\proto\critters\mob_dynamic.fopro, resources\foclassic\proto\critters\mutants.fopro, resources\foclassic\proto\critters\plants.fopro, resources\foclassic\proto\critters\quests.fopro, resources\foclassic\proto\critters\radscorpions.fopro, resources\foclassic\proto\critters\rats.fopro, resources\foclassic\proto\critters\robots.fopro, resources\foclassic\proto\critters\slavers.fopro, resources\foclassic\proto\critters\slaves.fopro, resources\foclassic\proto\critters\strangers.fopro, resources\foclassic\proto\critters\tribals.fopro, resources\foclassic\proto\critters\vips.fopro]
+
+Parsing critter proto file: 'resources\tlamk2\proto\critters\fallout2.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\tlamk2\proto\critters\tla.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\tlamk2\proto\critters\tlamk2.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\tlamk2\proto\critters\TlaMK2Dex.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\2238.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\aliens.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\bandits.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\bounty.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\brahmins.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\citizens.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\companions.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\crv_encounter.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\crv_guards.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\deathclaws.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\docan_critters.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\dogs.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\dungeons.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\encounter.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\geckos.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\ghouls.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\guards.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\insects.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\invalid.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\merchants.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\mob_dynamic.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\mutants.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\plants.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\quests.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\radscorpions.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\rats.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\robots.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\slavers.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\slaves.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\strangers.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\tribals.fopro'.
+Done.
+
+Parsing critter proto file: 'resources\foclassic\proto\critters\vips.fopro'.
+Done.
+
+Generating critter proto mapping.
+Done.
+
